@@ -52,9 +52,9 @@
 
 <style>
 .navbar-brand{
-    margin-left: 1rem;
+    margin-left: 1.5rem;
     font-style: italic;
-    font-weight: bold;
-    font-size: 1.5rem;
+    font-weight: 600;
+    font-size: 1.7rem;
 }
 </style>
