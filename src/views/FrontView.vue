@@ -1,18 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="./index.html">BeyeFendi</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link me-4 active" href="./index.html">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link me-4" href="./product.html">Product</a>
-            <a class="nav-item nav-link me-4" href="./detail.html">Detail</a>
-            <a class="nav-item nav-link" href="./cart.html"><i class="fas fa-shopping-cart"></i></a>
-        </div>
-        </div>
-    </nav>
+    <NavbarComponent></NavbarComponent>
     <router-view></router-view>
     <div class="bg-light py-4">
       <div class="container">
@@ -58,3 +45,43 @@
     font-size: 1.7rem;
 }
 </style>
+
+<script>
+import NavbarComponent from '../components/NavbarComponent.vue'
+import axios from 'axios'
+
+// console.log(import.meta.env.VITE_URL, import.meta.env.VITE_PATH)
+
+const { VITE_URL } = import.meta.env
+
+export default {
+  data () {
+    return {
+      user: {
+        username: 'aka05068@gmail.com',
+        password: 'Zg+1whyha'
+      }
+    }
+  },
+  components: {
+    NavbarComponent
+  },
+  methods: {
+    login () {
+      const api = `${VITE_URL}/admin/signin`
+
+      axios.post(api, this.user).then((response) => {
+        const { token, expired } = response.data
+        // 寫入 cookie token
+        // expires 設置有效時間
+        document.cookie = `hexToken=${token};expires=${new Date(expired)}; path=/`
+      }).catch((err) => {
+        alert(err.response.data.message)
+      })
+    }
+  },
+  mounted () {
+    this.login()
+  }
+}
+</script>
