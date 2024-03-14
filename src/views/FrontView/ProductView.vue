@@ -52,7 +52,7 @@
               </div>
             </div>
             <div class="col-6">
-              <a href="./checkout.html" class="text-nowrap btn btn-dark w-100 py-2">Lorem ipsum</a>
+              <a  class="text-nowrap btn btn-dark w-100 py-2" @click.prevent="addToCart">加入購物車</a>
             </div>
           </div>
         </div>
@@ -151,6 +151,17 @@ export default {
         .then((res) => {
           console.log(res)
           this.product = res.data.product
+        })
+    },
+    addToCart () {
+      const order = {
+        product_id: this.product.id,
+        qty: 1
+      }
+      axios.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data: order })
+        .then((res) => {
+          console.log(res)
+          // this.product = res.data.product
         })
     }
   },
