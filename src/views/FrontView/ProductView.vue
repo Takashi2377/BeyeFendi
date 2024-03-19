@@ -52,7 +52,7 @@
               </div>
             </div>
             <div class="col-6">
-              <a  class="text-nowrap btn btn-dark w-100 py-2" @click.prevent="addToCart">加入購物車</a>
+              <a  class="text-nowrap btn btn-dark w-100 py-2" @click.prevent="addToCart(product.id)">加入購物車</a>
             </div>
           </div>
         </div>
@@ -136,6 +136,10 @@
 <script>
 import axios from 'axios'
 
+import { mapActions } from 'pinia'
+
+import cartStore from '@/stores/cartStore' // @ = src/
+
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
@@ -153,17 +157,18 @@ export default {
           this.product = res.data.product
         })
     },
-    addToCart () {
-      const order = {
-        product_id: this.product.id,
-        qty: 1
-      }
-      axios.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data: order })
-        .then((res) => {
-          console.log(res)
-          // this.product = res.data.product
-        })
-    }
+    ...mapActions(cartStore, ['addToCart'])
+    // addToCart (id) {
+    //   const order = {
+    //     product_id: this.product.id,
+    //     qty: 1
+    //   }
+    //   axios.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data: order })
+    //     .then((res) => {
+    //       console.log(res)
+    //       // this.product = res.data.product
+    //     })
+    // }
   },
   mounted () {
     this.getProduct()

@@ -3,13 +3,14 @@
     <router-view></router-view>
     <div class="bg-light py-4">
       <div class="container">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center align-items-start">
-          <p class="mb-0 fw-bold">Lorem ipsum dolor sit amet.</p>
+        <div class="d-flex flex-md-row justify-content-between align-items-md-center align-items-start">
+          <!-- <p class="mb-0 fw-bold">訂閱我們的電子報</p> -->
           <div class="input-group w-md-50 mt-md-0 mt-3">
-            <input type="text" class="form-control rounded-0" placeholder="" />
+            <span class="input-group-text">訂閱我們的電子報</span>
+            <input type="text" class="form-control rounded-0" placeholder="請輸入您的email" />
             <div class="input-group-append">
               <button class="btn btn-dark rounded-0" type="button" id="search">
-                Lorem ipsum
+                訂閱
               </button>
             </div>
           </div>
@@ -19,7 +20,7 @@
     <div class="bg-dark py-5">
       <div class="container">
         <div class="d-flex align-items-center justify-content-between text-white mb-md-7 mb-4">
-          <a class="text-white h4" href="./index.html">LOGO</a>
+          <a class="text-white h4 navbar-brand" href="./index.html">BeyeFendi</a>
           <ul class="d-flex list-unstyled mb-0 h4">
             <li><a href="#" class="text-white mx-3"><i class="fab fa-facebook"></i></a></li>
             <li><a href="#" class="text-white mx-3"><i class="fab fa-instagram"></i></a></li>
@@ -39,7 +40,6 @@
 
 <style>
 .navbar-brand{
-    margin-left: 1.5rem;
     font-style: italic;
     font-weight: 600;
     font-size: 1.7rem;
