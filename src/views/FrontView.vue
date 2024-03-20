@@ -31,8 +31,9 @@
           <div class="mb-md-0 mb-1">
             <p class="mb-0">02-3456-7890</p>
             <p class="mb-0">service@mail.com</p>
+            <RouterLink class="mb-0" to="/login">後台登入頁面</RouterLink>
           </div>
-          <p class="mb-0">© 2020 LOGO All Rights Reserved.</p>
+          <p class="mb-0">© 2024 BeyeFendi All Rights Reserved.</p>
         </div>
       </div>
     </div>
