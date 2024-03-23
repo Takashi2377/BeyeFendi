@@ -47,32 +47,14 @@
               </div>
             </div>
           </div>
-          <nav class="d-flex justify-content-center">
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li class="page-item active"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
+          <PaginationComponent :pages="pagination" @emit-pages="getData"></PaginationComponent>
         </div>
       </div>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
-
-// console.log(import.meta.env.VITE_URL, import.meta.env.VITE_PATH)
+import PaginationComponent from '../../components/PaginationComponent.vue'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 
@@ -80,8 +62,12 @@ export default {
   data () {
     return {
       products: [],
-      categories: ['排餐', '拉麵', '蛋糕', '甜點']
+      categories: ['排餐', '拉麵', '蛋糕', '甜點'],
+      pagination: {}
     }
+  },
+  components: {
+    PaginationComponent
   },
   watch: {
     '$route.query': {
@@ -94,7 +80,7 @@ export default {
   methods: {
     checkAdmin () {
       const url = `${VITE_URL}/api/user/check`
-      axios
+      this.$http
         .post(url)
         .then(() => {
           this.getData()
@@ -106,10 +92,11 @@ export default {
     getData () {
       const { category = '' } = this.$route.query // 需預設為空, 否則會判斷為undefined, 無法讀到全部產品
       const url = `${VITE_URL}/api/${VITE_PATH}/admin/products?category=${category}`
-      axios
+      this.$http
         .get(url)
         .then((res) => {
           this.products = res.data.products
+          this.pagination = res.data.pagination
         })
         .catch((err) => {
           alert(err.response.data.message)
@@ -121,7 +108,7 @@ export default {
       /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
       '$1'
     )
-    axios.defaults.headers.common.Authorization = token
+    this.$http.defaults.headers.common.Authorization = token
     this.checkAdmin()
   }
 }

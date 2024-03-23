@@ -1,13 +1,13 @@
 <template>
    <div class="position-relative">
-      <div class="position-absolute z-n1" style="top:0; bottom:0; left:0; right:0; background-image: url(https://images.unsplash.com/photo-1480399129128-2066acb5009e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
-      background-position: center center; opacity: 0.1;"></div>
+      <div class="position-absolute z-n1" style="top:0; bottom:0; left:0; right:0; background-image: url(https://images.unsplash.com/photo-1495704907664-81f74a7efd9b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+      background-position: center center; opacity: 0.2;"></div>
       <div class="container d-flex flex-column" style="min-height: 100vh;">
         <div class="row justify-content-center my-auto">
           <div class="col-md-4 text-center">
-            <h2>Lorem ipsum.</h2>
-            <p class="text-muted mb-0">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod.</p>
-            <RouterLink class="btn btn-dark rounded-0 mt-6" to="/about">前往了解</RouterLink>
+            <h2 class="pb-3 title">The Watch Collections</h2>
+            <p class="text-muted mb-0">尊崇悠久傳統，祟尚精巧工藝，助您成為更加優雅的紳士。</p>
+            <RouterLink  type="button" class="btn btn-outline-dark rounded-2 mt-6" to="/about">前往了解</RouterLink>
           </div>
         </div>
       </div>
@@ -142,4 +142,8 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  opacity: 0.85;
+  font-weight: 400;
+}
 </style>

@@ -58,6 +58,10 @@ const routes = [
         component: () => import('@/views/DashBoardView/CouponsView.vue')
       }
     ]
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('../views/FrontView/HomeView.vue')
   }
 ]
 

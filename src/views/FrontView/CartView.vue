@@ -59,7 +59,7 @@
         <table class="table align-middle">
           <thead>
             <tr>
-              <th></th>
+              <th style="width: 110px"></th>
               <th>圖片</th>
               <th>品名</th>
               <th style="width: 110px">數量</th>

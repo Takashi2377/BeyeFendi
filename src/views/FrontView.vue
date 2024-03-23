@@ -21,20 +21,21 @@
     <div class="bg-dark py-5">
       <div class="container">
         <div class="d-flex align-items-center justify-content-between text-white mb-md-7 mb-4">
-          <a class="text-white h4 navbar-brand" href="./index.html">BeyeFendi</a>
+          <router-link class="text-white h4 navbar-brand" to="/">BeyeFendi</router-link>
           <ul class="d-flex list-unstyled mb-0 h4">
-            <li><a href="#" class="text-white mx-3"><i class="fab fa-facebook"></i></a></li>
-            <li><a href="#" class="text-white mx-3"><i class="fab fa-instagram"></i></a></li>
-            <li><a href="#" class="text-white ms-3"><i class="fab fa-line"></i></a></li>
+            <li><a href="#" class="text-white mx-3"><i class="bi bi-facebook"></i></a></li>
+            <li><a href="#" class="text-white mx-3"><i class="bi bi-instagram"></i></a></li>
+            <li><a href="#" class="text-white ms-3"><i class="bi bi-line"></i></a></li>
           </ul>
         </div>
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end align-items-start text-white">
           <div class="mb-md-0 mb-1">
             <p class="mb-0">02-3456-7890</p>
-            <p class="mb-0">service@mail.com</p>
-            <RouterLink class="mb-0" to="/login">後台登入頁面</RouterLink>
+            <p class="mb-0">aka05068@gmail.com</p>
+            <hr>
+            <RouterLink class="mb-0" to="/login">Dashboard Login</RouterLink>
           </div>
-          <p class="mb-0">© 2024 BeyeFendi All Rights Reserved.</p>
+          <p class="mb-0">© 2024 <span class="brand">BeyeFendi</span> All Rights Reserved.</p>
         </div>
       </div>
     </div>
@@ -46,6 +47,14 @@
     font-style: italic;
     font-weight: 600;
     font-size: 1.7rem;
+}
+.brand{
+  font-style: italic;
+    font-weight: 600;
+}
+a {
+  text-decoration: none;
+  color: #ffffff8c;
 }
 </style>
 

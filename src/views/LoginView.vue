@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
+    <div class="container pt-5">
         <div class="row justify-content-center">
-          <h2 class="row justify-content-center">登入頁面</h2>
+          <h2 class="row justify-content-center pb-2">登入頁面</h2>
           <div class="col-8">
             <form class="form-signin" @submit.prevent="login">
               <div class="form-floating mb-3">
@@ -23,7 +23,7 @@
         <p class="mt-5 mb-3 text-muted row justify-content-center">
           &copy; 2023~∞ - 六角學院
         </p>
-        <RouterLink class="row justify-content-center" to="/">回到前台</RouterLink>
+        <RouterLink class="row justify-content-center text-secondary" to="/">回到前台</RouterLink>
       </div>
   </template>
 
