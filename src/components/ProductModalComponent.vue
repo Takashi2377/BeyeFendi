@@ -104,7 +104,7 @@
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 取消
               </button>
-              <button type="button" class="btn btn-primary" @click="updateProduct">
+              <button type="button" class="btn btn-primary" @click="$emit('update-product', editProduct)">
                 確認
               </button>
             </div>
@@ -114,24 +114,19 @@
 </template>
 
 <script>
-import { Modal } from 'bootstrap'
-import axios from 'axios'
-
-const { VITE_URL, VITE_PATH } = import.meta.env
+import modalMixin from '@/mixins/modalMixin'
 
 export default {
   props: ['product', 'isNew'],
   data () {
     return {
-      productModal: null,
+      modal: '',
       editProduct: {}
     }
   },
+  emits: ['update-product'],
+  mixins: [modalMixin],
   mounted () {
-    this.productModal = new Modal(document.getElementById('productModal'), {
-      keyboard: false,
-      backdrop: 'static'
-    })
     this.editProduct = this.product
   },
   watch: {
@@ -140,33 +135,9 @@ export default {
     }
   },
   methods: {
-    updateProduct () {
-      // 新增商品
-      let api = `${VITE_URL}/api/${VITE_PATH}/admin/product`
-      let httpMethod = 'post'
-      // 當不是新增商品時則切換成編輯商品 API
-      if (!this.isNew) {
-        api = `${VITE_URL}/api/${VITE_PATH}/admin/product/${this.product.id}`
-        httpMethod = 'put'
-      }
-
-      axios[httpMethod](api, { data: this.product }).then((response) => {
-        alert(response.data.message)
-        this.hideModal()
-        this.$emit('update')
-      }).catch((err) => {
-        alert(err.response.data.message)
-      })
-    },
     createImages () {
       this.editProduct.imagesUrl = []
       this.editProduct.imagesUrl.push('')
-    },
-    openModal () {
-      this.productModal.show()
-    },
-    hideModal () {
-      this.productModal.hide()
     }
   }
 }

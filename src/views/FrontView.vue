@@ -1,4 +1,5 @@
 <template>
+  <div class="pt-6">
     <NavbarComponent></NavbarComponent>
     <router-view></router-view>
     <div class="bg-light py-4">
@@ -37,6 +38,7 @@
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <style>

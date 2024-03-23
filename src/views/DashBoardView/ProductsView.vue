@@ -58,12 +58,13 @@
       <!-- 分頁元件 -->
     </div>
     <!-- Modal -->
-    <ProductModalComponent ref="product" :product="tempProduct" :is-new="isNew" @update="getData"></ProductModalComponent>
-    <DelProductModalComponent ref="delProduct" :item="tempProduct" @update="getData"></DelProductModalComponent>
+    <ProductModalComponent ref="product" :product="tempProduct" :is-new="isNew" @update-product="updateProduct"></ProductModalComponent>
+    <DelProductModalComponent ref="delProduct" :item="tempProduct" @del-item="delProduct"></DelProductModalComponent>
 </template>
 
 <script>
-import axios from 'axios'
+import { mapActions } from 'pinia'
+import { useToastMessageStore } from '@/stores/toastMessage'
 
 import PaginationComponent from '../../components/PaginationComponent.vue'
 import ProductModalComponent from '../../components/ProductModalComponent.vue'
@@ -79,38 +80,118 @@ export default {
         imagesUrl: []
       },
       pagination: {},
-      isNew: false
+      isNew: false,
+      isLoading: false,
+      status: {
+        fileUploading: false
+      },
+      modal: {
+        editModal: '',
+        delModal: ''
+      },
+      currentPage: 1
     }
+  },
+  components: {
+    PaginationComponent,
+    ProductModalComponent,
+    DelProductModalComponent
   },
   mounted () {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
-    axios.defaults.headers.common.Authorization = token
+    this.$http.defaults.headers.common.Authorization = token
     this.checkAdmin()
   },
   methods: {
+    ...mapActions(useToastMessageStore, ['pushMessage']),
     checkAdmin () {
       const url = `${VITE_URL}/api/user/check`
-      axios.post(url)
+      this.$http.post(url)
         .then(() => {
           this.getData()
         })
         .catch((err) => {
           alert(err.response.data.message)
-          window.location = 'login.html'
+          this.$router.push('/login')
         })
     },
     getData (page = 1) {
+      this.currentPage = page
       const url = `${VITE_URL}/api/${VITE_PATH}/admin/products?page=${page}`
-
-      axios.get(url)
+      this.isLoading = true
+      this.$http.get(url)
         .then((response) => {
           const { products, pagination } = response.data
           this.products = products
           this.pagination = pagination
+          this.isLoading = false
+          this.pushMessage({
+            style: 'success',
+            title: '成功取得產品資訊',
+            content: response.data.message
+          })
         }).catch((err) => {
-          alert(err.response.data.message)
-          window.location = 'login.html'
+          this.isLoading = false
+          this.pushMessage({
+            style: 'danger',
+            title: '取得產品資訊失敗',
+            content: err.response.data.message
+          })
         })
+    },
+    updateProduct (item) {
+      this.tempProduct = item
+      // 新增商品
+      let api = `${VITE_URL}/api/${VITE_PATH}/admin/product`
+      this.isLoading = true
+      let httpMethod = 'post'
+      let status = '新增產品'
+      // 當不是新增商品時則切換成編輯商品 API
+      if (!this.isNew) {
+        api = `${VITE_URL}/api/${VITE_PATH}/admin/product/${this.tempProduct.id}`
+        httpMethod = 'put'
+        status = '更新產品'
+      }
+      const productComponent = this.$refs.product
+      this.$http[httpMethod](api, { data: this.tempProduct }).then((response) => {
+        this.isLoading = false
+        this.pushMessage({
+          style: 'success',
+          title: status,
+          content: response.data.message
+        })
+        productComponent.hideModal()
+        this.getData(this.currentPage)
+      }).catch((err) => {
+        this.isLoading = false
+        this.pushMessage({
+          style: 'danger',
+          title: status,
+          content: err.response.data.message
+        })
+      })
+    },
+    delProduct () {
+      const url = `${VITE_URL}/api/${VITE_PATH}/admin/product/${this.tempProduct.id}`
+      this.isLoading = true
+      this.$http.delete(url).then((response) => {
+        this.isLoading = false
+        this.pushMessage({
+          style: 'success',
+          title: '刪除產品',
+          content: response.data.message
+        })
+        const delComponent = this.$refs.delProduct
+        delComponent.hideModal()
+        this.getData(this.currentPage)
+      }).catch((error) => {
+        this.isLoading = false
+        this.pushMessage({
+          style: 'danger',
+          title: '刪除產品',
+          content: error.response.data.message
+        })
+      })
     },
     openModal (isNew, item) {
       if (isNew === 'new') {
@@ -128,11 +209,6 @@ export default {
         this.$refs.delProduct.openModal()
       }
     }
-  },
-  components: {
-    PaginationComponent,
-    ProductModalComponent,
-    DelProductModalComponent
   }
 }
 </script>

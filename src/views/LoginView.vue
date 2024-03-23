@@ -28,8 +28,6 @@
   </template>
 
 <script>
-import axios from 'axios'
-
 const { VITE_URL } = import.meta.env
 
 export default {
@@ -43,7 +41,7 @@ export default {
   },
   methods: {
     login () {
-      axios.post(`${VITE_URL}/admin/signin`, this.user).then((response) => {
+      this.$http.post(`${VITE_URL}/admin/signin`, this.user).then((response) => {
         const { token, expired } = response.data
         document.cookie = `hexToken=${token};expires=${new Date(expired)}; path=/`
         this.$router.push('/admin/products')

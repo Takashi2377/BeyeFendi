@@ -17,7 +17,7 @@
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
               取消
             </button>
-            <button type="button" class="btn btn-danger" @click="delProduct">
+            <button type="button" class="btn btn-danger" @click="$emit('del-item')">
               確認刪除
             </button>
           </div>
@@ -27,38 +27,11 @@
 </template>
 
 <script>
-import { Modal } from 'bootstrap'
-import axios from 'axios'
+import modalMixin from '@/mixins/modalMixin'
 
-const { VITE_URL, VITE_PATH } = import.meta.env
 export default {
   props: ['item'],
-  data () {
-    return {
-      delProductModal: null
-    }
-  },
-  mounted () {
-    this.delProductModal = new Modal(document.getElementById('delProductModal'), {
-      keyboard: false,
-      backdrop: 'static'
-    })
-  },
-  methods: {
-    delProduct () {
-      axios.delete(`${VITE_URL}/api/${VITE_PATH}/admin/product/${this.item.id}`).then((response) => {
-        this.hideModal()
-        this.$emit('update')
-      }).catch((err) => {
-        alert(err.response.data.message)
-      })
-    },
-    openModal () {
-      this.delProductModal.show()
-    },
-    hideModal () {
-      this.delProductModal.hide()
-    }
-  }
+  emits: ['del-item'],
+  mixins: [modalMixin]
 }
 </script>

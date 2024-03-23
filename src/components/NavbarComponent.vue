@@ -10,7 +10,7 @@
                 <RouterLink class="nav-item nav-link me-4" to="/">Home</RouterLink>
                 <RouterLink class="nav-item nav-link me-4" to="/about">About</RouterLink>
                 <RouterLink class="nav-item nav-link me-4" to="/products">Products</RouterLink>
-                <RouterLink class="nav-item btn btn-secondary position-relative" to="/"><i class="bi bi-cart"></i>
+                <RouterLink class="nav-item btn btn-secondary position-relative" to="/cart"><i class="bi bi-cart"></i>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                   {{ this.carts?.length }}
                 <span class="visually-hidden">unread messages</span>

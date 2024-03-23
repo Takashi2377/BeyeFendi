@@ -29,6 +29,11 @@ const routes = [
         path: '/cart',
         name: 'Cart',
         component: () => import('../views/FrontView/CartView.vue')
+      },
+      {
+        path: '/checkout/:orderId',
+        name: 'Checkout',
+        component: () => import('../views/FrontView/CheckoutView.vue')
       }
     ]
   },
@@ -45,8 +50,12 @@ const routes = [
         component: () => import('../views/DashBoardView/ProductsView.vue')
       },
       {
-        path: 'order',
-        component: () => import('../views/DashBoardView/OrderView.vue')
+        path: 'orders',
+        component: () => import('../views/DashBoardView/OrdersView.vue')
+      },
+      {
+        path: 'coupons',
+        component: () => import('@/views/DashBoardView/CouponsView.vue')
       }
     ]
   }

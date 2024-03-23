@@ -1,38 +1,50 @@
 <template>
-    <div class="container">
-    <h2>後台管理</h2>
-    <nav>
-        <router-link to="/admin/products">產品管理</router-link> |
-        <router-link to="/admin/order">訂單管理</router-link> |
-        <router-link to="/">回到前台</router-link>
-    </nav>
-    <router-view></router-view>
-    </div>
+  <DashBoardNavbarLayout />
+  <div class="container-fluid mt-3 position-relative">
+    <ToastMessages />
+    <RouterView v-if="status" />
+  </div>
 </template>
+
 <script>
-import axios from 'axios'
+import { mapActions } from 'pinia'
+import { useToastMessageStore } from '@/stores/toastMessage'
+
+import ToastMessages from '@/components/ToastMessages.vue'
+import DashBoardNavbarLayout from '@/components/DashBoardNavbarLayout.vue'
 
 const { VITE_URL } = import.meta.env
 
 export default {
-  methods: {
-    checkAdmin () {
-      const url = `${VITE_URL}/api/user/check`
-      axios.post(url)
-        .then(() => {
-        })
-        .catch((err) => {
-          alert(err.response.data.message)
-          this.$router.push('/login')
-        })
+  components: { DashBoardNavbarLayout, ToastMessages },
+  data () {
+    return {
+      status: false
     }
   },
-  mounted () {
-    // 取出 Token
+  methods: {
+    ...mapActions(useToastMessageStore, ['pushMessage'])
+  },
+  created () {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
-    axios.defaults.headers.common.Authorization = token
-
-    this.checkAdmin()
+    this.$http.defaults.headers.common.Authorization = `${token}`
+    const url = `${VITE_URL}/api/user/check`
+    this.$http.post(url)
+      .then((response) => {
+        this.pushMessage({
+          style: 'success',
+          title: '成功登入',
+          content: response.data.message
+        })
+        this.status = true
+      }).catch((error) => {
+        this.pushMessage({
+          style: 'danger',
+          title: '錯誤訊息',
+          content: error.response.data.message
+        })
+        this.$router.push('/')
+      })
   }
 }
 </script>
