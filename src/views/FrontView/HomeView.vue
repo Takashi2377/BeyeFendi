@@ -18,13 +18,13 @@
         <div class="col-md-4 mt-md-4">
           <div class="card border-0 mb-4">
             <img
-            src="https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            :src="products[7]?.imageUrl"
               class="card-img-top rounded-0"
               alt="..."
               height="258"
             />
             <div class="card-body text-center">
-              <h4>BZ0977</h4>
+              <h4>{{ this.products[7]?.title }}</h4>
               <div class="d-flex justify-content-center">
                 <p class="card-text text-muted mb-0">
                   年度限量，擁抱時尚奢華魅力。
@@ -37,13 +37,13 @@
         <div class="col-md-4 mt-md-4">
           <div class="card border-0 mb-4">
             <img
-            src="https://images.unsplash.com/photo-1704782672090-02480e337d85?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            :src="products[0]?.imageUrl"
               class="card-img-top rounded-0"
               alt="..."
               height="258"
             />
             <div class="card-body text-center">
-              <h4>WC0777</h4>
+              <h4>{{ this.products[0]?.title }}</h4>
               <div class="d-flex justify-content-center">
                 <p class="card-text text-muted mb-0">
                   探險精神，上山下海無所不能。
@@ -57,13 +57,13 @@
         <div class="col-md-4 mt-md-4">
           <div class="card border-0 mb-4">
             <img
-            src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?q=80&w=2130&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            :src="products[4]?.imageUrl"
               class="card-img-top rounded-0"
               alt="..."
               height="258"
             />
             <div class="card-body text-center">
-              <h4>BZ0006</h4>
+              <h4>{{ this.products[4]?.title }}</h4>
               <div class="d-flex justify-content-center">
                 <p class="card-text text-muted mb-0">
                   平價、時尚、實用，輕鬆入手。
@@ -168,32 +168,31 @@ export default {
     }
   },
   methods: {
-    login () {
-      const api = `${VITE_URL}/admin/signin`
+    // login () {
+    //   const api = `${VITE_URL}/admin/signin`
 
-      this.$http.post(api, this.user).then((response) => {
-        const { token, expired } = response.data
-        // 寫入 cookie token
-        // expires 設置有效時間
-        document.cookie = `hexToken=${token};expires=${new Date(expired)}; path=/`
-      }).catch((err) => {
-        alert(err.response.data.message)
-      })
-    },
-    checkAdmin () {
-      const url = `${VITE_URL}/api/user/check`
-      this.$http
-        .post(url)
-        .then(() => {
-          this.getData()
-        })
-        .catch((err) => {
-          alert(err.response.data.message)
-        })
-    },
+    //   this.$http.post(api, this.user).then((response) => {
+    //     const { token, expired } = response.data
+    //     // 寫入 cookie token
+    //     // expires 設置有效時間
+    //     document.cookie = `hexToken=${token};expires=${new Date(expired)}; path=/`
+    //   }).catch((err) => {
+    //     alert(err.response.data.message)
+    //   })
+    // },
+    // checkAdmin () {
+    //   const url = `${VITE_URL}/api/user/check`
+    //   this.$http
+    //     .post(url)
+    //     .then(() => {
+    //       this.getData()
+    //     })
+    //     .catch((err) => {
+    //       alert(err.response.data.message)
+    //     })
+    // },
     getData () {
-      const { category = '' } = this.$route.query // 需預設為空, 否則會判斷為undefined, 無法讀到全部產品
-      const url = `${VITE_URL}/api/${VITE_PATH}/admin/products?category=${category}`
+      const url = `${VITE_URL}/api/${VITE_PATH}/products/all`
       this.$http
         .get(url)
         .then((res) => {
@@ -206,13 +205,7 @@ export default {
     }
   },
   mounted () {
-    this.login()
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-      '$1'
-    )
-    this.$http.defaults.headers.common.Authorization = token
-    this.checkAdmin()
+    this.getData()
   }
 }
 </script>

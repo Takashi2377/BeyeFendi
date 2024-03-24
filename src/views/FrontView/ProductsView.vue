@@ -80,21 +80,10 @@ export default {
     }
   },
   methods: {
-    checkAdmin () {
-      const url = `${VITE_URL}/api/user/check`
-      this.$http
-        .post(url)
-        .then(() => {
-          this.getData()
-        })
-        .catch((err) => {
-          alert(err.response.data.message)
-        })
-    },
     getData (page = 1) {
       this.currentPage = page
       const { category = '' } = this.$route.query // 需預設為空, 否則會判斷為undefined, 無法讀到全部產品
-      const url = `${VITE_URL}/api/${VITE_PATH}/admin/products?category=${category}&page=${page}`
+      const url = `${VITE_URL}/api/${VITE_PATH}/products?category=${category}&page=${page}`
       this.$http
         .get(url)
         .then((res) => {
@@ -108,12 +97,7 @@ export default {
     }
   },
   mounted () {
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-      '$1'
-    )
-    this.$http.defaults.headers.common.Authorization = token
-    this.checkAdmin()
+    this.getData()
   }
 }
 </script>

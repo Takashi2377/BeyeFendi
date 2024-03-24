@@ -69,11 +69,57 @@
         </div> -->
       </div>
     </div>
+    <div class="container">
+      <hr>
+      <div class="row mt-5">
+        <h2 class="text-center py-2">其他商品</h2>
+        <div class="col-md-4 mt-md-4">
+          <div class="card border-0 mb-4">
+            <img
+            :src="products[0]?.imageUrl"
+              class="card-img-top rounded-0"
+              alt="..."
+              height="258"
+            />
+            <div class="card-body text-center">
+              <h4>{{ this.products[0]?.title }}</h4>
+              <RouterLink  type="button" class="btn btn-outline-dark rounded-2 mt-3" :to="`/product/${products[0]?.id}`">立即選購</RouterLink>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-md-4">
+          <div class="card border-0 mb-4">
+            <img
+            :src="products[1]?.imageUrl"
+              class="card-img-top rounded-0"
+              alt="..."
+              height="258"
+            />
+            <div class="card-body text-center">
+              <h4>{{ this.products[1]?.title }}</h4>
+              <RouterLink  type="button" class="btn btn-outline-dark rounded-2 mt-3" :to="`/product/${products[1]?.id}`">立即選購</RouterLink>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-md-4">
+          <div class="card border-0 mb-4">
+            <img
+            :src="products[2]?.imageUrl"
+              class="card-img-top rounded-0"
+              alt="..."
+              height="258"
+            />
+            <div class="card-body text-center">
+              <h4>{{ this.products[2]?.title }}</h4>
+              <RouterLink  type="button" class="btn btn-outline-dark rounded-2 mt-3" :to="`/product/${products[2]?.id}`">立即選購</RouterLink>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
-import axios from 'axios'
-
 import { mapActions } from 'pinia'
 
 import cartStore from '@/stores/cartStore' // @ = src/
@@ -84,22 +130,47 @@ export default {
   data () {
     return {
       product: {},
-      qty: 1
+      qty: 1,
+      products: []
+    }
+  },
+  watch: {
+    '$route.query': {
+      handler () {
+        this.getProduct()
+        this.getProducts()
+      },
+      deep: true
     }
   },
   methods: {
     getProduct () {
       const { id } = this.$route.params
-      axios.get(`${VITE_URL}/api/${VITE_PATH}/product/${id}`)
+      this.$http.get(`${VITE_URL}/api/${VITE_PATH}/product/${id}`)
         .then((res) => {
           console.log(res)
           this.product = res.data.product
+        })
+    },
+    getProducts () {
+      const url = `${VITE_URL}/api/${VITE_PATH}/products/all`
+      this.$http
+        .get(url)
+        .then((res) => {
+          this.products = res.data.products.filter((item) => {
+            return item.id !== this.product.id
+          })
+          console.log(this.products)
+        })
+        .catch((err) => {
+          alert(err.response.data.message)
         })
     },
     ...mapActions(cartStore, ['addToCart'])
   },
   mounted () {
     this.getProduct()
+    this.getProducts()
   }
 }
 </script>
