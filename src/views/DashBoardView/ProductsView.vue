@@ -30,10 +30,10 @@
           <tr v-for="(item) in products" :key="item.id">
             <td>{{ item.category }}</td>
             <td>{{ item.title }}</td>
-            <td class="text-end">
+            <td class="text">
               {{ item.origin_price }}
             </td>
-            <td class="text-end">
+            <td class="text">
               {{ item.price }}
             </td>
             <td>
