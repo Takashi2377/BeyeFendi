@@ -64,7 +64,8 @@ export default {
     return {
       products: [],
       categories: ['Blazer', 'Wild-Conqueror'],
-      pagination: {}
+      pagination: {},
+      currentPage: 1
     }
   },
   components: {
@@ -90,9 +91,10 @@ export default {
           alert(err.response.data.message)
         })
     },
-    getData () {
+    getData (page = 1) {
+      this.currentPage = page
       const { category = '' } = this.$route.query // 需預設為空, 否則會判斷為undefined, 無法讀到全部產品
-      const url = `${VITE_URL}/api/${VITE_PATH}/admin/products?category=${category}`
+      const url = `${VITE_URL}/api/${VITE_PATH}/admin/products?category=${category}&page=${page}`
       this.$http
         .get(url)
         .then((res) => {
