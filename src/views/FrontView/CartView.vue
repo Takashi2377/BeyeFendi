@@ -3,7 +3,7 @@
       <VueLoading :active="isLoading" :z-index="1060" />
       <div class="mt-4">
         <!-- 產品列表 -->
-        <table class="table align-middle">
+        <!-- <table class="table align-middle">
           <thead>
             <tr>
               <th>圖片</th>
@@ -49,7 +49,7 @@
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
         <!-- 購物車列表 -->
         <div class="text-end">
           <button class="btn btn-outline-danger" type="button" @click="deleteAllCarts">
@@ -113,7 +113,7 @@
           </tfoot>
         </table>
         <div class="input-group mb-3 input-group-sm">
-          <input type="text" class="form-control" v-model="coupon_code" placeholder="請輸入優惠碼" />
+          <input type="text" class="form-control" v-model="coupon_code" placeholder="輸入優惠碼 'FB777' ，即享線上首購優惠77折" />
           <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="button" @click="addCouponCode">
               套用優惠碼

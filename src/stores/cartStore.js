@@ -21,10 +21,10 @@ export default defineStore('cartStore', {
           console.log('pinia cart', res)
         })
     },
-    addToCart (id) {
+    addToCart (id, qty) {
       const order = {
         product_id: id,
-        qty: 1
+        qty
       }
       axios.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data: order })
         .then((res) => {

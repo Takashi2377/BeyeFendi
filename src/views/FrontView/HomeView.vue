@@ -14,57 +14,63 @@
     </div>
     <div class="container">
       <div class="row mt-5">
+        <h2 class="text-center py-2">Recommended Goods</h2>
         <div class="col-md-4 mt-md-4">
           <div class="card border-0 mb-4">
             <img
-              src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80"
+            src="https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               class="card-img-top rounded-0"
               alt="..."
+              height="258"
             />
             <div class="card-body text-center">
-              <h4>Lorem ipsum</h4>
-              <div class="d-flex justify-content-between">
+              <h4>BZ0977</h4>
+              <div class="d-flex justify-content-center">
                 <p class="card-text text-muted mb-0">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod.
+                  年度限量，擁抱時尚奢華魅力。
                 </p>
               </div>
+              <RouterLink  type="button" class="btn btn-outline-dark rounded-2 mt-3" to="/product/-NtiddYRZGHZKd2zIZme">立即選購</RouterLink>
             </div>
           </div>
         </div>
         <div class="col-md-4 mt-md-4">
           <div class="card border-0 mb-4">
             <img
-              src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80"
+            src="https://images.unsplash.com/photo-1704782672090-02480e337d85?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               class="card-img-top rounded-0"
               alt="..."
+              height="258"
             />
             <div class="card-body text-center">
-              <h4>Lorem ipsum</h4>
-              <div class="d-flex justify-content-between">
+              <h4>WC0777</h4>
+              <div class="d-flex justify-content-center">
                 <p class="card-text text-muted mb-0">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod.
+                  探險精神，上山下海無所不能。
                 </p>
               </div>
+              <RouterLink  type="button" class="btn btn-outline-dark rounded-2 mt-3" to="/product/-NnTk5olgZotge7lBeki">立即選購</RouterLink>
+
             </div>
           </div>
         </div>
         <div class="col-md-4 mt-md-4">
           <div class="card border-0 mb-4">
             <img
-              src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80"
+            src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?q=80&w=2130&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               class="card-img-top rounded-0"
               alt="..."
+              height="258"
             />
             <div class="card-body text-center">
-              <h4>Lorem ipsum</h4>
-              <div class="d-flex justify-content-between">
+              <h4>BZ0006</h4>
+              <div class="d-flex justify-content-center">
                 <p class="card-text text-muted mb-0">
-                  Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                  diam nonumy eirmod.
+                  平價、時尚、實用，輕鬆入手。
                 </p>
               </div>
+              <RouterLink  type="button" class="btn btn-outline-dark rounded-2 mt-3" to="/product/-Ntib9p5dqOp-wm24bs9">立即選購</RouterLink>
+
             </div>
           </div>
         </div>
@@ -120,6 +126,7 @@
           <h4 class="my-4">Blazer</h4>
           <p class="text-muted text-start lh-lg" style="text-indent: 2rem;">Blazer系列融合了經典與時尚的設計元素，適合配戴於正式或商務場合。精選高品質的錶殼與錶帶材質，
           展現出品味與品質的完美結合，讓您隨時掌握時間，展現紳士風範。</p>
+          <RouterLink  type="button" class="btn btn-outline-dark rounded-2 mt-2" to="/products?category=Blazer">系列總覽</RouterLink>
         </div>
       </div>
       <div class="row flex-row-reverse justify-content-between mt-4">
@@ -130,16 +137,11 @@
           <h4 class="my-4">Wild-Conqueror</h4>
           <p class="text-muted text-start lh-lg" style="text-indent: 2rem;">Wild-Conqueror系列是專為潛水、戶外愛好者而設計的錶款，具有優異的防水性能和耐用性，讓您在外出探險時無憂無慮。
           此系列擁有清晰的夜間顯示、計時功能等，讓您在戶外探險的過程中輕鬆掌握各項數據、享受樂趣。</p>
+          <RouterLink  type="button" class="btn btn-outline-dark rounded-2 mt-2" to="/products?category=Wild-Conqueror">系列總覽</RouterLink>
         </div>
       </div>
     </div>
 </template>
-
-<script>
-
-export default {
-}
-</script>
 
 <style scoped>
 .title {
@@ -151,3 +153,66 @@ export default {
   background: radial-gradient(circle, rgba(242,242,242,0.9304096638655462) 34%, rgba(166,166,166,0.5886729691876751) 73%, rgba(115,115,115,0.5606617647058824) 100%);
 }
 </style>
+
+<script>
+const { VITE_URL, VITE_PATH } = import.meta.env
+
+export default {
+  data () {
+    return {
+      products: [],
+      user: {
+        username: 'aka05068@gmail.com',
+        password: 'Zg+1whyha'
+      }
+    }
+  },
+  methods: {
+    login () {
+      const api = `${VITE_URL}/admin/signin`
+
+      this.$http.post(api, this.user).then((response) => {
+        const { token, expired } = response.data
+        // 寫入 cookie token
+        // expires 設置有效時間
+        document.cookie = `hexToken=${token};expires=${new Date(expired)}; path=/`
+      }).catch((err) => {
+        alert(err.response.data.message)
+      })
+    },
+    checkAdmin () {
+      const url = `${VITE_URL}/api/user/check`
+      this.$http
+        .post(url)
+        .then(() => {
+          this.getData()
+        })
+        .catch((err) => {
+          alert(err.response.data.message)
+        })
+    },
+    getData () {
+      const { category = '' } = this.$route.query // 需預設為空, 否則會判斷為undefined, 無法讀到全部產品
+      const url = `${VITE_URL}/api/${VITE_PATH}/admin/products?category=${category}`
+      this.$http
+        .get(url)
+        .then((res) => {
+          console.log(res.data.products)
+          this.products = res.data.products
+        })
+        .catch((err) => {
+          alert(err.response.data.message)
+        })
+    }
+  },
+  mounted () {
+    this.login()
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+      '$1'
+    )
+    this.$http.defaults.headers.common.Authorization = token
+    this.checkAdmin()
+  }
+}
+</script>

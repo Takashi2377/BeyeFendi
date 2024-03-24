@@ -24,7 +24,7 @@
                 </li>
               </ul>
             </td>
-            <td class="text-right">{{ item.total }}</td>
+            <td class="text-right">{{ Math.floor(item.total) }}</td>
             <td>
               <div class="form-check form-switch">
                 <input
