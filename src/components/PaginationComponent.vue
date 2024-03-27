@@ -50,12 +50,19 @@
   color: #000000;
   background-color: #fff;
   border-color: #000000;
+  cursor: pointer;
 }
+
+.pagination li:hover:not(.active) a {
+  background-color: rgb(217, 217, 217);
+}
+
 .pagination .page-item.active .page-link {
   /* 當前分頁 */
   color: #ffffff;
   background-color: #000000;
   border-color: #000000;
+  cursor: pointer;
 }
 </style>
 
