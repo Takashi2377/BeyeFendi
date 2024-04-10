@@ -48,14 +48,14 @@
             </div>
           </div>
           <div class="page"></div>
-          <PaginationComponent :pages="pagination" @emit-pages="getData"></PaginationComponent>
+          <PaginationComponent :pages="pagination" @emit-pages="getData" />
         </div>
       </div>
     </div>
 </template>
 
 <script>
-import PaginationComponent from '../../components/PaginationComponent.vue'
+import PaginationComponent from '@/components/PaginationComponent.vue'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 

@@ -1,7 +1,7 @@
 <template>
   <div class="pt-6">
-    <NavbarComponent></NavbarComponent>
-    <router-view></router-view>
+    <NavbarComponent />
+    <router-view />
     <div class="bg-light py-4">
       <div class="container">
         <div class="d-flex flex-md-row justify-content-between align-items-md-center align-items-start">
@@ -42,24 +42,8 @@
   </div>
 </template>
 
-<style>
-.navbar-brand{
-    font-style: italic;
-    font-weight: 600;
-    font-size: 1.7rem;
-}
-.brand{
-  font-style: italic;
-    font-weight: 600;
-}
-a {
-  text-decoration: none;
-  color: #ffffff8c;
-}
-</style>
-
 <script>
-import NavbarComponent from '../components/NavbarComponent.vue'
+import NavbarComponent from '@/components/NavbarComponent.vue'
 import axios from 'axios'
 
 // console.log(import.meta.env.VITE_URL, import.meta.env.VITE_PATH)
@@ -97,3 +81,19 @@ export default {
   }
 }
 </script>
+
+<style>
+.navbar-brand{
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.7rem;
+}
+.brand{
+  font-style: italic;
+    font-weight: 600;
+}
+a {
+  text-decoration: none;
+  color: #ffffff8c;
+}
+</style>
