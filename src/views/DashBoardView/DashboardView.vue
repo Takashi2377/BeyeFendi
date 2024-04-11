@@ -17,7 +17,7 @@ const { VITE_URL } = import.meta.env
 
 export default {
   components: { DashBoardNavbarLayout, ToastMessages },
-  data () {
+  data() {
     return {
       status: false
     }
@@ -25,11 +25,15 @@ export default {
   methods: {
     ...mapActions(useToastMessageStore, ['pushMessage'])
   },
-  created () {
-    const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
+  created() {
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+      '$1'
+    )
     this.$http.defaults.headers.common.Authorization = `${token}`
     const url = `${VITE_URL}/api/user/check`
-    this.$http.post(url)
+    this.$http
+      .post(url)
       .then((response) => {
         this.pushMessage({
           style: 'success',
@@ -37,7 +41,8 @@ export default {
           content: response.data.message
         })
         this.status = true
-      }).catch((error) => {
+      })
+      .catch((error) => {
         this.pushMessage({
           style: 'danger',
           title: '錯誤訊息',

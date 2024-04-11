@@ -143,7 +143,7 @@ import cartStore from '@/stores/cartStore' // @ = src/
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
-  data () {
+  data() {
     return {
       product: {},
       qty: 1,
@@ -152,14 +152,14 @@ export default {
   },
   watch: {
     '$route.query': {
-      async handler () {
+      async handler() {
         this.getProduct()
       },
       deep: true
     }
   },
   computed: {
-    recommendProducts () {
+    recommendProducts() {
       console.log('iam here')
       return this.products
         .filter((item) => {
@@ -170,7 +170,7 @@ export default {
     }
   },
   methods: {
-    async getProduct () {
+    async getProduct() {
       const { id } = this.$route.params
       this.$http
         .get(`${VITE_URL}/api/${VITE_PATH}/product/${id}`)
@@ -179,7 +179,7 @@ export default {
           this.product = res.data.product
         })
     },
-    async getProducts () {
+    async getProducts() {
       const url = `${VITE_URL}/api/${VITE_PATH}/products/all`
       this.$http
         .get(url)
@@ -193,7 +193,7 @@ export default {
     },
     ...mapActions(cartStore, ['addToCart'])
   },
-  mounted () {
+  mounted() {
     this.getProduct()
     this.getProducts()
   }

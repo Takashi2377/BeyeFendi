@@ -2,8 +2,15 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">BeyeFendi</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -26,9 +33,10 @@ const { VITE_URL } = import.meta.env
 export default {
   methods: {
     ...mapActions(useToastMessageStore, ['pushMessage']),
-    logout () {
+    logout() {
       const api = `${VITE_URL}/logout`
-      this.$http.post(api)
+      this.$http
+        .post(api)
         .then((response) => {
           this.pushMessage({
             style: 'success',
@@ -36,7 +44,8 @@ export default {
             content: response.data.message
           })
           this.$router.push('/login')
-        }).catch((error) => {
+        })
+        .catch((error) => {
           this.pushMessage({
             style: 'danger',
             title: '登出狀態',

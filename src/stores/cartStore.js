@@ -11,22 +11,22 @@ export default defineStore('cartStore', {
     total: 0
   }),
   actions: {
-    getCart () {
-      axios.get(`${VITE_URL}/api/${VITE_PATH}/cart`)
-        .then((res) => {
+    getCart() {
+      axios.get(`${VITE_URL}/api/${VITE_PATH}/cart`).then((res) => {
         //   this.cart = res.data.data
-          this.carts = res.data.data.carts
-          this.final_total = res.data.data.final_total
-          this.total = res.data.data.total
-          console.log('pinia cart', res)
-        })
+        this.carts = res.data.data.carts
+        this.final_total = res.data.data.final_total
+        this.total = res.data.data.total
+        console.log('pinia cart', res)
+      })
     },
-    addToCart (id, qty) {
+    addToCart(id, qty) {
       const order = {
         product_id: id,
         qty
       }
-      axios.post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data: order })
+      axios
+        .post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data: order })
         .then((res) => {
           console.log(res)
           this.getCart()

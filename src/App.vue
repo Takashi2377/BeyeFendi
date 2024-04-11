@@ -4,12 +4,12 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {}
   }
 }
 </script>
 
 <style lang="scss">
-@import "./assets/all";
+@import './assets/all';
 </style>

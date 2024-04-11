@@ -2,14 +2,14 @@ import BsModal from 'bootstrap/js/dist/modal'
 
 export default {
   methods: {
-    openModal () {
+    openModal() {
       this.modal.show()
     },
-    hideModal () {
+    hideModal() {
       this.modal.hide()
     }
   },
-  mounted () {
+  mounted() {
     this.modal = new BsModal(this.$refs.modal)
   }
 }

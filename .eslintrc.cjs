@@ -19,5 +19,10 @@ module.exports = {
     }
   },
   plugins: ['vue'],
-  rules: {}
+  rules: {
+    'space-before-function-paren': [
+      'error',
+      { anonymous: 'ignore', named: 'ignore', asyncArrow: 'ignore' }
+    ]
+  }
 }

@@ -207,7 +207,7 @@
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
-  data () {
+  data() {
     return {
       products: [],
       user: {
@@ -217,7 +217,7 @@ export default {
     }
   },
   methods: {
-    getData () {
+    getData() {
       const url = `${VITE_URL}/api/${VITE_PATH}/products/all`
       this.$http
         .get(url)
@@ -230,24 +230,24 @@ export default {
         })
     }
   },
-  mounted () {
+  mounted() {
     this.getData()
   }
 }
 </script>
 
 <style scoped>
-  .title {
-    opacity: 0.85;
-    font-weight: 400;
-  }
-  .quote {
-    background: rgb(242, 242, 242);
-    background: radial-gradient(
-      circle,
-      rgba(242, 242, 242, 0.9304096638655462) 34%,
-      rgba(166, 166, 166, 0.5886729691876751) 73%,
-      rgba(115, 115, 115, 0.5606617647058824) 100%
-    );
-  }
+.title {
+  opacity: 0.85;
+  font-weight: 400;
+}
+.quote {
+  background: rgb(242, 242, 242);
+  background: radial-gradient(
+    circle,
+    rgba(242, 242, 242, 0.9304096638655462) 34%,
+    rgba(166, 166, 166, 0.5886729691876751) 73%,
+    rgba(115, 115, 115, 0.5606617647058824) 100%
+  );
+}
 </style>

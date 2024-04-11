@@ -27,7 +27,9 @@
             />
             <label for="floatingPassword">Password</label>
           </div>
-          <button class="btn btn-lg btn-primary w-100 mt-3" type="submit">登入</button>
+          <button class="btn btn-lg btn-primary w-100 mt-3" type="submit">
+            登入
+          </button>
         </form>
       </div>
     </div>
@@ -44,7 +46,7 @@
 const { VITE_URL } = import.meta.env
 
 export default {
-  data () {
+  data() {
     return {
       user: {
         username: '',
@@ -53,12 +55,14 @@ export default {
     }
   },
   methods: {
-    login () {
+    login() {
       this.$http
         .post(`${VITE_URL}/admin/signin`, this.user)
         .then((response) => {
           const { token, expired } = response.data
-          document.cookie = `hexToken=${token};expires=${new Date(expired)}; path=/`
+          document.cookie = `hexToken=${token};expires=${new Date(
+            expired
+          )}; path=/`
           this.$router.push('/admin/products')
         })
         .catch((err) => {
