@@ -1,56 +1,8 @@
 <template>
   <div class="container">
     <VueLoading :active="isLoading" :z-index="1060" />
+    <!-- 購物車列表 -->
     <div class="mt-4">
-      <!-- 產品列表 -->
-      <!-- <table class="table align-middle">
-          <thead>
-            <tr>
-              <th>圖片</th>
-              <th>商品名稱</th>
-              <th>價格</th>
-              <th>功能</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in products" :key="item.id">
-              <td style="width: 200px">
-                <div style="
-                    height: 100px;
-                    background-size: cover;
-                    background-position: center;
-                    " :style="{ backgroundImage: `url(${item.imageUrl})` }"></div>
-              </td>
-              <td>
-                <a href="#" class="text-dark">{{ item.title }}</a>
-              </td>
-              <td>
-                <div class="h5" v-if="!item.price">
-                  {{ item.origin_price }} 元
-                </div>
-                <del class="h6" v-if="item.price">原價 {{ item.origin_price }} 元</del>
-                <div class="h5" v-if="item.price">
-                  現在只要 {{ item.price }} 元
-                </div>
-              </td>
-              <td>
-                <div class="btn-group btn-group-sm">
-                  <button type="button" class="btn btn-outline-secondary"
-                    :disabled="status.loadingItem === item.id || !item.is_enabled" @click="getProduct(item.id)">
-                    <span class="spinner-border spinner-grow-sm" v-if="status.loadingItem === item.id"></span>
-                    查看更多
-                  </button>
-                  <button type="button" class="btn btn-outline-danger" @click="addToCart(item.id)"
-                    :disabled="status.loadingItem === item.id || !item.is_enabled">
-                    <span class="spinner-border spinner-grow-sm" v-if="status.loadingItem === item.id"></span>
-                    加到購物車
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table> -->
-      <!-- 購物車列表 -->
       <div class="text-end">
         <button
           class="btn btn-outline-danger"
@@ -115,7 +67,7 @@
                   class="text-success"
                   >折扣價：</small
                 >
-                {{ $filters.currency(item.final_total) }}
+                $ {{ $filters.currency(item.final_total) }}
               </td>
             </tr>
           </template>
@@ -123,12 +75,12 @@
         <tfoot>
           <tr>
             <td colspan="4" class="text-end">總計</td>
-            <td class="text-end">{{ $filters.currency(cart.total) }}</td>
+            <td class="text-end">NT$ {{ $filters.currency(cart.total) }}</td>
           </tr>
           <tr v-if="cart.final_total !== cart.total">
             <td colspan="4" class="text-end text-success">折扣價</td>
             <td class="text-end text-success">
-              {{ $filters.currency(cart.final_total) }}
+              NT$ {{ $filters.currency(cart.final_total) }}
             </td>
           </tr>
         </tfoot>
@@ -151,7 +103,7 @@
         </div>
       </div>
     </div>
-
+    <!-- 表單驗證 -->
     <div class="my-5 row justify-content-center">
       <VeeForm
         ref="form"
@@ -348,7 +300,6 @@ export default {
       this.$http
         .get(url)
         .then((response) => {
-          console.log(response)
           this.cart = response.data.data
           this.isLoading = false
         })

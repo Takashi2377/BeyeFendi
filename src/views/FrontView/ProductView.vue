@@ -2,27 +2,6 @@
   <div class="container">
     <div class="row align-items-center">
       <div class="col-md-7 pt-3">
-        <!-- <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1502743780242-f10d2ce370f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1916&q=80" class="d-block w-100" alt="...">
-              </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only"></span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only"></span>
-            </a>
-          </div> -->
         <img
           :src="product.imageUrl"
           class="d-block w-100 rounded-1"
@@ -99,9 +78,6 @@
           {{ product.description }}
         </p>
       </div>
-      <!-- <div class="col-md-3">
-          <p class="text-muted">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</p>
-        </div> -->
     </div>
   </div>
   <div class="container">
@@ -160,7 +136,6 @@ export default {
   },
   computed: {
     recommendProducts() {
-      console.log('iam here')
       return this.products
         .filter((item) => {
           return item.id !== this.product?.id
@@ -175,7 +150,6 @@ export default {
       this.$http
         .get(`${VITE_URL}/api/${VITE_PATH}/product/${id}`)
         .then((res) => {
-          console.log(res)
           this.product = res.data.product
         })
     },
@@ -185,7 +159,6 @@ export default {
         .get(url)
         .then((res) => {
           this.products = res.data.products
-          console.log('!!!!!!!!!!!', this.products)
         })
         .catch((err) => {
           alert(err.response.data.message)

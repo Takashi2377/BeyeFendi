@@ -76,9 +76,9 @@
 import { mapActions } from 'pinia'
 import { useToastMessageStore } from '@/stores/toastMessage'
 
-import PaginationComponent from '../../components/PaginationComponent.vue'
-import ProductModalComponent from '../../components/ProductModalComponent.vue'
-import DelProductModalComponent from '../../components/DelProductModalComponent.vue'
+import PaginationComponent from '@/components/PaginationComponent.vue'
+import ProductModalComponent from '@/components/ProductModalComponent.vue'
+import DelProductModalComponent from '@/components/DelProductModalComponent.vue'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 

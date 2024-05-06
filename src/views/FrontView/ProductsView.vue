@@ -141,7 +141,6 @@ export default {
       this.$http
         .get(url)
         .then((res) => {
-          console.log(res.data.products)
           this.products = res.data.products
           this.pagination = res.data.pagination
         })

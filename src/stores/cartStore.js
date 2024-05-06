@@ -17,7 +17,6 @@ export default defineStore('cartStore', {
         this.carts = res.data.data.carts
         this.final_total = res.data.data.final_total
         this.total = res.data.data.total
-        console.log('pinia cart', res)
       })
     },
     addToCart(id, qty) {
@@ -28,7 +27,6 @@ export default defineStore('cartStore', {
       axios
         .post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data: order })
         .then((res) => {
-          console.log(res)
           this.getCart()
         })
     }

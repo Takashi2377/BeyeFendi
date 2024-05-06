@@ -70,8 +70,6 @@
 import NavbarComponent from '@/components/NavbarComponent.vue'
 import axios from 'axios'
 
-// console.log(import.meta.env.VITE_URL, import.meta.env.VITE_PATH)
-
 const { VITE_URL } = import.meta.env
 
 export default {
