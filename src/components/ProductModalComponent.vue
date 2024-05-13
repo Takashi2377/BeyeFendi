@@ -33,7 +33,11 @@
                   class="form-control"
                   placeholder="請輸入圖片連結"
                 />
-                <img class="img-fluid" :src="editProduct.imageUrl" />
+                <img
+                  class="img-fluid"
+                  :src="editProduct.imageUrl"
+                  alt="編輯產品之圖片預覽"
+                />
               </div>
               <div v-if="Array.isArray(editProduct.imagesUrl)">
                 <div
@@ -53,7 +57,11 @@
                       placeholder="請輸入圖片連結"
                     />
                   </div>
-                  <img class="img-fluid" :src="image" />
+                  <img
+                    class="img-fluid"
+                    :src="image"
+                    alt="編輯產品之圖片預覽"
+                  />
                 </div>
                 <div
                   v-if="

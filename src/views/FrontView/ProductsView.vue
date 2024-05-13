@@ -74,7 +74,7 @@
                 :src="product.imageUrl"
                 class="card-img-top rounded-0 object-fit-cover"
                 height="400"
-                alt="..."
+                alt="各項產品縮圖"
               />
               <a href="#" class="text-dark">
                 <i

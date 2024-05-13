@@ -5,7 +5,7 @@
         <img
           :src="product.imageUrl"
           class="d-block w-100 rounded-1"
-          alt="..."
+          alt="當前單一產品圖片"
         />
       </div>
       <div class="col-md-5">
@@ -93,7 +93,7 @@
           <img
             :src="item.imageUrl"
             class="card-img-top rounded-0"
-            alt="..."
+            alt="其他推薦商品圖片"
             height="258"
           />
           <div class="card-body text-center">

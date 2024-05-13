@@ -37,7 +37,7 @@
           <img
             :src="products[7]?.imageUrl"
             class="card-img-top rounded-0"
-            alt="..."
+            alt="推薦商品圖-1"
             height="258"
           />
           <div class="card-body text-center">
@@ -61,7 +61,7 @@
           <img
             :src="products[0]?.imageUrl"
             class="card-img-top rounded-0"
-            alt="..."
+            alt="推薦商品圖-2"
             height="258"
           />
           <div class="card-body text-center">
@@ -85,7 +85,7 @@
           <img
             :src="products[4]?.imageUrl"
             class="card-img-top rounded-0"
-            alt="..."
+            alt="推薦商品圖-3"
             height="258"
           />
           <div class="card-body text-center">
