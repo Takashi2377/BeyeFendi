@@ -56,3 +56,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.navbar-brand {
+  font-style: italic;
+  font-weight: 600;
+}
+</style>

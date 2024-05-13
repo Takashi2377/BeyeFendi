@@ -72,6 +72,7 @@
                   <button
                     class="btn btn-outline-primary btn-sm d-block w-100"
                     @click="editProduct.imagesUrl.push('')"
+                    type="button"
                   >
                     新增圖片
                   </button>
@@ -80,6 +81,7 @@
                   <button
                     class="btn btn-outline-danger btn-sm d-block w-100"
                     @click="editProduct.imagesUrl.pop()"
+                    type="button"
                   >
                     刪除圖片
                   </button>
@@ -89,6 +91,7 @@
                 <button
                   class="btn btn-outline-primary btn-sm d-block w-100"
                   @click="createImages"
+                  type="button"
                 >
                   新增圖片
                 </button>

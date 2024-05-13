@@ -13,7 +13,7 @@ import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 
 import { date, currency } from '@/methods/filters'
 
-import './assets/all.scss'
+import './assets/scss/all.scss'
 import App from './App.vue'
 import router from './router'
 
