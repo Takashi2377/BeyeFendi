@@ -13,7 +13,6 @@ export default defineStore('cartStore', {
   actions: {
     getCart() {
       axios.get(`${VITE_URL}/api/${VITE_PATH}/cart`).then((res) => {
-        //   this.cart = res.data.data
         this.carts = res.data.data.carts
         this.final_total = res.data.data.final_total
         this.total = res.data.data.total

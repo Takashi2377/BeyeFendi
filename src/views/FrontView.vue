@@ -7,7 +7,6 @@
         <div
           class="d-flex flex-md-row justify-content-between align-items-md-center align-items-start"
         >
-          <!-- <p class="mb-0 fw-bold">訂閱我們的電子報</p> -->
           <div class="input-group w-md-50 mt-md-0 mt-3">
             <span class="input-group-text">訂閱我們的電子報</span>
             <input

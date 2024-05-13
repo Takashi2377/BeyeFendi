@@ -7,7 +7,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background-image: url(https://images.unsplash.com/photo-1495704907664-81f74a7efd9b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+        background-image: url(https://images.unsplash.com/photo-1495704907664-81f74a7efd9b?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
         background-position: center center;
         opacity: 0.2;
       "
@@ -134,7 +134,7 @@
     <div class="row">
       <div class="col-md-6">
         <img
-          src="https://images.unsplash.com/photo-1617317376997-8748e6862c01?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="https://images.unsplash.com/photo-1617317376997-8748e6862c01?q=80&w=650&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Blazer系列產品形象照"
           class="img-fluid"
         />
@@ -156,7 +156,7 @@
     <div class="row flex-row-reverse justify-content-between mt-4">
       <div class="col-md-6">
         <img
-          src="https://images.unsplash.com/photo-1704782625031-7e26bdf2e0fb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="https://images.unsplash.com/photo-1704782625031-7e26bdf2e0fb?q=80&w=650&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Wild-Conqueror系列產品形象照"
           class="img-fluid"
         />
