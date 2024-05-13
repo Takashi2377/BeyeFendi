@@ -1,4 +1,5 @@
 <template>
+  <VueLoading :active="isLoading" :z-index="1060" />
   <div class="position-relative">
     <div
       class="position-absolute z-n1"
@@ -188,16 +189,19 @@ export default {
       user: {
         username: 'aka05068@gmail.com',
         password: 'Zg+1whyha'
-      }
+      },
+      isLoading: false
     }
   },
   methods: {
     getData() {
+      this.isLoading = true
       const url = `${VITE_URL}/api/${VITE_PATH}/products/all`
       this.$http
         .get(url)
         .then((res) => {
           this.products = res.data.products
+          this.isLoading = false
         })
         .catch((err) => {
           alert(err.response.data.message)

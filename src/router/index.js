@@ -68,6 +68,9 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   linkActiveClass: 'active',
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 } // always scroll to top
+  },
   routes
 })
 
