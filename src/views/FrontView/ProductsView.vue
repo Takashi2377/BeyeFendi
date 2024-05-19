@@ -1,4 +1,5 @@
 <template>
+  <VueLoading :active="isLoading" :z-index="1060" />
   <div
     class="position-relative d-flex align-items-center justify-content-center"
     style="min-height: 400px"
@@ -119,7 +120,8 @@ export default {
       products: [],
       categories: ['Blazer', 'Wild-Conqueror'],
       pagination: {},
-      currentPage: 1
+      currentPage: 1,
+      isLoading: false
     }
   },
   components: {
@@ -135,6 +137,7 @@ export default {
   },
   methods: {
     getData(page = 1) {
+      this.isLoading = true
       this.currentPage = page
       const { category = '' } = this.$route.query // 需預設為空, 否則會判斷為undefined, 無法讀到全部產品
       const url = `${VITE_URL}/api/${VITE_PATH}/products?category=${category}&page=${page}`
@@ -143,6 +146,7 @@ export default {
         .then((res) => {
           this.products = res.data.products
           this.pagination = res.data.pagination
+          this.isLoading = false
         })
         .catch((err) => {
           alert(err.response.data.message)

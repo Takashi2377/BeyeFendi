@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <VueLoading :active="isLoading" :z-index="1060" />
     <div class="row align-items-center">
       <div class="col-md-7 pt-3">
         <img
@@ -123,7 +124,8 @@ export default {
     return {
       product: {},
       qty: 1,
-      products: []
+      products: [],
+      isLoading: false
     }
   },
   watch: {
@@ -146,19 +148,23 @@ export default {
   },
   methods: {
     async getProduct() {
+      this.isLoading = true
       const { id } = this.$route.params
       this.$http
         .get(`${VITE_URL}/api/${VITE_PATH}/product/${id}`)
         .then((res) => {
           this.product = res.data.product
+          this.isLoading = false
         })
     },
     async getProducts() {
+      this.isLoading = true
       const url = `${VITE_URL}/api/${VITE_PATH}/products/all`
       this.$http
         .get(url)
         .then((res) => {
           this.products = res.data.products
+          this.isLoading = false
         })
         .catch((err) => {
           alert(err.response.data.message)
