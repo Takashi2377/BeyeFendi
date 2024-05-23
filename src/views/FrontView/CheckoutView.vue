@@ -63,6 +63,8 @@
 import { mapActions } from 'pinia'
 import { useToastMessageStore } from '@/stores/toastMessage'
 
+import Swal from 'sweetalert2'
+
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
@@ -96,21 +98,34 @@ export default {
     },
     payOrder() {
       const url = `${VITE_URL}/api/${VITE_PATH}/pay/${this.orderId}`
-      this.isLoading = true
-      this.$http
-        .post(url)
-        .then(() => {
-          this.isLoading = false
-          this.getOrder()
-        })
-        .catch((error) => {
-          this.isLoading = false
-          this.pushMessage({
-            style: 'danger',
-            title: '付款失敗',
-            content: error.response.data.message
-          })
-        })
+      Swal.fire({
+        title: '確認付款?',
+        text: '請再次確認訂單及收件人資料無誤',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確認付款',
+        cancelButtonText: '先等等'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.isLoading = true
+          this.$http
+            .post(url)
+            .then(() => {
+              this.isLoading = false
+              this.getOrder()
+            })
+            .catch((error) => {
+              this.isLoading = false
+              this.pushMessage({
+                style: 'danger',
+                title: '付款失敗',
+                content: error.response.data.message
+              })
+            })
+        }
+      })
     }
   },
   created() {

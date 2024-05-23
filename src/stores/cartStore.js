@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 
@@ -27,6 +28,7 @@ export default defineStore('cartStore', {
         .post(`${VITE_URL}/api/${VITE_PATH}/cart`, { data: order })
         .then((res) => {
           this.getCart()
+          Swal.fire('成功加入購物車!')
         })
     }
   }

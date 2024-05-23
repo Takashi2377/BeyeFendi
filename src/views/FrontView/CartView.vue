@@ -3,12 +3,17 @@
     <VueLoading :active="isLoading" :z-index="1060" />
     <!-- 購物車列表 -->
     <div class="mt-4">
-      <div class="text-end">
+      <div class="text-end" v-if="cart.carts.length >= 1">
         <button
           class="btn btn-outline-danger"
           type="button"
           @click="deleteAllCarts"
         >
+          清空購物車
+        </button>
+      </div>
+      <div class="text-end" v-else>
+        <button class="btn btn-outline-danger" type="button" disabled>
           清空購物車
         </button>
       </div>
@@ -194,6 +199,8 @@
 import { mapActions } from 'pinia'
 import { useToastMessageStore } from '@/stores/toastMessage'
 
+import Swal from 'sweetalert2'
+
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
@@ -272,27 +279,40 @@ export default {
         })
     },
     deleteAllCarts() {
-      this.isLoading = true
       const url = `${VITE_URL}/api/${VITE_PATH}/carts`
-      this.$http
-        .delete(url)
-        .then((response) => {
-          this.pushMessage({
-            style: 'success',
-            title: '清除購物車',
-            content: response.data.message
+      Swal.fire({
+        title: '你確定嗎?',
+        text: '購物車清空後無法復原',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '確定清空!',
+        cancelButtonText: '再想一下...'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.isLoading = true
+          this.$http
+            .delete(url)
+            .then((response) => {
+              this.getCart()
+              this.isLoading = false
+            })
+            .catch((error) => {
+              this.isLoading = false
+              this.pushMessage({
+                style: 'danger',
+                title: '清除購物車',
+                content: error.response.data.message
+              })
+            })
+          Swal.fire({
+            title: 'Clear!',
+            text: '購物車空空如也',
+            icon: 'success'
           })
-          this.getCart()
-          this.isLoading = false
-        })
-        .catch((error) => {
-          this.isLoading = false
-          this.pushMessage({
-            style: 'danger',
-            title: '清除購物車',
-            content: error.response.data.message
-          })
-        })
+        }
+      })
     },
     getCart() {
       const url = `${VITE_URL}/api/${VITE_PATH}/cart`
@@ -392,24 +412,37 @@ export default {
         })
     },
     createOrder() {
-      this.isLoading = true
-      const url = `${VITE_URL}/api/${VITE_PATH}/order`
-      const order = this.form
-      this.$http
-        .post(url, { data: order })
-        .then((response) => {
-          this.$router.push(`checkout/${response.data.orderId}`)
-          this.$refs.form.resetForm()
-          this.isLoading = false
-        })
-        .catch((error) => {
-          this.isLoading = false
-          this.pushMessage({
-            style: 'danger',
-            title: '建立訂單',
-            content: error.response.data.message
-          })
-        })
+      Swal.fire({
+        title: '確定送出訂單?',
+        text: '即將進入付款頁面',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '前往付款',
+        cancelButtonText: '再去逛逛'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.isLoading = true
+          const url = `${VITE_URL}/api/${VITE_PATH}/order`
+          const order = this.form
+          this.$http
+            .post(url, { data: order })
+            .then((response) => {
+              this.$router.push(`checkout/${response.data.orderId}`)
+              this.$refs.form.resetForm()
+              this.isLoading = false
+            })
+            .catch((error) => {
+              this.isLoading = false
+              this.pushMessage({
+                style: 'danger',
+                title: '建立訂單',
+                content: error.response.data.message
+              })
+            })
+        }
+      })
     }
   },
   created() {

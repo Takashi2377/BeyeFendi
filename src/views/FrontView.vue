@@ -1,6 +1,7 @@
 <template>
   <div class="pt-6">
     <NavbarComponent />
+    <ToastMessages />
     <router-view />
     <div class="bg-light py-4">
       <div class="container">
@@ -67,6 +68,7 @@
 
 <script>
 import NavbarComponent from '@/components/NavbarComponent.vue'
+import ToastMessages from '@/components/ToastMessages.vue'
 import axios from 'axios'
 
 const { VITE_URL } = import.meta.env
@@ -81,7 +83,8 @@ export default {
     }
   },
   components: {
-    NavbarComponent
+    NavbarComponent,
+    ToastMessages
   },
   methods: {
     login() {
