@@ -245,39 +245,6 @@ export default {
           })
         })
     },
-    getProduct(id) {
-      this.$router.push(`product/${id}`)
-    },
-    addToCart(id, qty = 1) {
-      this.isLoading = true
-      const url = `${VITE_URL}/api/${VITE_PATH}/cart`
-      this.status.loadingItem = id
-      const cart = {
-        product_id: id,
-        qty
-      }
-
-      this.$http
-        .post(url, { data: cart })
-        .then((response) => {
-          this.status.loadingItem = ''
-          this.isLoading = false
-          this.pushMessage({
-            style: 'success',
-            title: '成功加入購物車',
-            content: response.data.message
-          })
-          this.getCart()
-        })
-        .catch((error) => {
-          this.isLoading = false
-          this.pushMessage({
-            style: 'danger',
-            title: '加入購物車失敗',
-            content: error.response.data.message
-          })
-        })
-    },
     deleteAllCarts() {
       const url = `${VITE_URL}/api/${VITE_PATH}/carts`
       Swal.fire({
@@ -406,7 +373,7 @@ export default {
           this.isLoading = false
           this.pushMessage({
             style: 'danger',
-            title: '加入優惠券',
+            title: '優惠碼加入失敗',
             content: error.response.data.message
           })
         })

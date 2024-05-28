@@ -67,6 +67,11 @@ export default {
   methods: {
     ...mapActions(cartStore, ['getCart'])
   },
+  // watch: {
+  //   carts(newValue, oldValue) {
+  //     this.carts.length = newValue.length
+  //   }
+  // },
   mounted() {
     this.getCart()
   }
