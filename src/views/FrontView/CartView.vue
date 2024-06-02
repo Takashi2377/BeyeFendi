@@ -3,7 +3,7 @@
     <VueLoading :active="isLoading" :z-index="1060" />
     <!-- 購物車列表 -->
     <div class="mt-4">
-      <div class="text-end" v-if="cart.carts.length >= 1">
+      <div class="text-end" v-if="carts.length >= 1">
         <button
           class="btn btn-outline-danger"
           type="button"
@@ -28,8 +28,8 @@
           </tr>
         </thead>
         <tbody>
-          <template v-if="cart.carts">
-            <tr v-for="item in cart.carts" :key="item.id">
+          <template v-if="carts">
+            <tr v-for="item in carts" :key="item.id">
               <td>
                 <button
                   type="button"
@@ -68,7 +68,7 @@
               </td>
               <td class="text-end">
                 <small
-                  v-if="cart.final_total !== cart.total"
+                  v-if="final_total !== total"
                   class="text-success"
                   >折扣價：</small
                 >
@@ -80,12 +80,12 @@
         <tfoot>
           <tr>
             <td colspan="4" class="text-end">總計</td>
-            <td class="text-end">NT$ {{ $filters.currency(cart.total) }}</td>
+            <td class="text-end">NT$ {{ $filters.currency(total) }}</td>
           </tr>
-          <tr v-if="cart.final_total !== cart.total">
+          <tr v-if="final_total !== total">
             <td colspan="4" class="text-end text-success">折扣價</td>
             <td class="text-end text-success">
-              NT$ {{ $filters.currency(cart.final_total) }}
+              NT$ {{ $filters.currency(final_total) }}
             </td>
           </tr>
         </tfoot>
@@ -196,8 +196,9 @@
 </template>
 
 <script>
-import { mapActions } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 import { useToastMessageStore } from '@/stores/toastMessage'
+import cartStore from '@/stores/cartStore'
 
 import Swal from 'sweetalert2'
 
@@ -220,13 +221,14 @@ export default {
         },
         message: ''
       },
-      cart: {},
+      // cart: {},
       isLoading: false,
       coupon_code: ''
     }
   },
   methods: {
     ...mapActions(useToastMessageStore, ['pushMessage']),
+    ...mapActions(cartStore, ['deleteAllCarts', 'removeCartItem']),
     getProducts() {
       const url = `${VITE_URL}/api/${VITE_PATH}/products`
       this.isLoading = true
@@ -245,42 +247,42 @@ export default {
           })
         })
     },
-    deleteAllCarts() {
-      const url = `${VITE_URL}/api/${VITE_PATH}/carts`
-      Swal.fire({
-        title: '你確定嗎?',
-        text: '購物車清空後無法復原',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '確定清空!',
-        cancelButtonText: '再想一下...'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.isLoading = true
-          this.$http
-            .delete(url)
-            .then((response) => {
-              this.getCart()
-              this.isLoading = false
-            })
-            .catch((error) => {
-              this.isLoading = false
-              this.pushMessage({
-                style: 'danger',
-                title: '清除購物車',
-                content: error.response.data.message
-              })
-            })
-          Swal.fire({
-            title: 'Clear!',
-            text: '購物車空空如也',
-            icon: 'success'
-          })
-        }
-      })
-    },
+    // deleteAllCarts() {
+    //   const url = `${VITE_URL}/api/${VITE_PATH}/carts`
+    //   Swal.fire({
+    //     title: '你確定嗎?',
+    //     text: '購物車清空後無法復原',
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: '確定清空!',
+    //     cancelButtonText: '再想一下...'
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+    //       this.isLoading = true
+    //       this.$http
+    //         .delete(url)
+    //         .then((response) => {
+    //           this.getCart()
+    //           this.isLoading = false
+    //         })
+    //         .catch((error) => {
+    //           this.isLoading = false
+    //           this.pushMessage({
+    //             style: 'danger',
+    //             title: '清除購物車',
+    //             content: error.response.data.message
+    //           })
+    //         })
+    //       Swal.fire({
+    //         title: 'Clear!',
+    //         text: '購物車空空如也',
+    //         icon: 'success'
+    //       })
+    //     }
+    //   })
+    // },
     getCart() {
       const url = `${VITE_URL}/api/${VITE_PATH}/cart`
       this.isLoading = true
@@ -299,31 +301,31 @@ export default {
           })
         })
     },
-    removeCartItem(id) {
-      this.status.loadingItem = id
-      const url = `${VITE_URL}/api/${VITE_PATH}/cart/${id}`
-      this.isLoading = true
-      this.$http
-        .delete(url)
-        .then((response) => {
-          this.pushMessage({
-            style: 'success',
-            title: '移除購物車品項',
-            content: response.data.message
-          })
-          this.status.loadingItem = ''
-          this.isLoading = false
-          this.getCart()
-        })
-        .catch((error) => {
-          this.isLoading = false
-          this.pushMessage({
-            style: 'danger',
-            title: '移除購物車品項',
-            content: error.response.data.message
-          })
-        })
-    },
+    // removeCartItem(id) {
+    //   this.status.loadingItem = id
+    //   const url = `${VITE_URL}/api/${VITE_PATH}/cart/${id}`
+    //   this.isLoading = true
+    //   this.$http
+    //     .delete(url)
+    //     .then((response) => {
+    //       this.pushMessage({
+    //         style: 'success',
+    //         title: '移除購物車品項',
+    //         content: response.data.message
+    //       })
+    //       this.status.loadingItem = ''
+    //       this.isLoading = false
+    //       this.getCart()
+    //     })
+    //     .catch((error) => {
+    //       this.isLoading = false
+    //       this.pushMessage({
+    //         style: 'danger',
+    //         title: '移除購物車品項',
+    //         content: error.response.data.message
+    //       })
+    //     })
+    // },
     updateCart(data) {
       this.isLoading = true
       const url = `${VITE_URL}/api/${VITE_PATH}/cart/${data.id}`
@@ -411,6 +413,9 @@ export default {
         }
       })
     }
+  },
+  computed: {
+    ...mapState(cartStore, ['carts', 'final_total', 'total'])
   },
   created() {
     this.getProducts()

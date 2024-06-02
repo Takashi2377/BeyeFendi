@@ -3,6 +3,8 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
+import { useToastMessageStore } from '@/stores/toastMessage'
+
 const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default defineStore('cartStore', {
@@ -35,6 +37,7 @@ export default defineStore('cartStore', {
         })
     },
     deleteAllCarts() {
+      const { pushMessage } = useToastMessageStore()
       const url = `${VITE_URL}/api/${VITE_PATH}/carts`
       Swal.fire({
         title: '你確定嗎?',
@@ -48,7 +51,7 @@ export default defineStore('cartStore', {
       }).then((result) => {
         if (result.isConfirmed) {
           this.isLoading = true
-          this.$http
+          axios
             .delete(url)
             .then((response) => {
               this.getCart()
@@ -56,7 +59,7 @@ export default defineStore('cartStore', {
             })
             .catch((error) => {
               this.isLoading = false
-              this.pushMessage({
+              pushMessage({
                 style: 'danger',
                 title: '清除購物車',
                 content: error.response.data.message
@@ -69,6 +72,32 @@ export default defineStore('cartStore', {
           })
         }
       })
+    },
+    removeCartItem(id) {
+      // this.status.loadingItem = id
+      const { pushMessage } = useToastMessageStore()
+      const url = `${VITE_URL}/api/${VITE_PATH}/cart/${id}`
+      this.isLoading = true
+      axios
+        .delete(url)
+        .then((response) => {
+          pushMessage({
+            style: 'success',
+            title: '移除購物車品項',
+            content: response.data.message
+          })
+          // this.status.loadingItem = ''
+          this.isLoading = false
+          this.getCart()
+        })
+        .catch((error) => {
+          this.isLoading = false
+          pushMessage({
+            style: 'danger',
+            title: '移除購物車品項',
+            content: error
+          })
+        })
     }
   }
 })
