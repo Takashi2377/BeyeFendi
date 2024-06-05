@@ -13,7 +13,7 @@ export default defineStore('cartStore', {
     final_total: 0,
     total: 0,
     isLoadingP: false,
-    order: {
+    orderP: {
       user: {}
     }
   }),
@@ -157,6 +157,39 @@ export default defineStore('cartStore', {
           })
         })
     },
+    createOrder() {
+      Swal.fire({
+        title: '確定送出訂單?',
+        text: '即將進入付款頁面',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '前往付款',
+        cancelButtonText: '再去逛逛'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.isLoading = true
+          const url = `${VITE_URL}/api/${VITE_PATH}/order`
+          const order = this.form
+          this.$http
+            .post(url, { data: order })
+            .then((response) => {
+              this.$router.push(`checkout/${response.data.orderId}`)
+              this.$refs.form.resetForm()
+              this.isLoading = false
+            })
+            .catch((error) => {
+              this.isLoading = false
+              this.pushMessage({
+                style: 'danger',
+                title: '建立訂單',
+                content: error.response.data.message
+              })
+            })
+        }
+      })
+    },
     getOrder(orderId) {
       const { pushMessage } = useToastMessageStore()
       const url = `${VITE_URL}/api/${VITE_PATH}/order/${orderId}`
@@ -164,7 +197,7 @@ export default defineStore('cartStore', {
       axios
         .get(url)
         .then((response) => {
-          this.order = response.data.order
+          this.orderP = response.data.order
           this.isLoadingP = false
         })
         .catch((error) => {
@@ -195,7 +228,8 @@ export default defineStore('cartStore', {
             .post(url)
             .then(() => {
               this.isLoadingP = false
-              this.getOrder()
+              this.getOrder(orderId)
+              this.getCart()
             })
             .catch((error) => {
               this.isLoadingP = false

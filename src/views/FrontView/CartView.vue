@@ -200,7 +200,7 @@ import { mapActions, mapState } from 'pinia'
 import { useToastMessageStore } from '@/stores/toastMessage'
 import cartStore from '@/stores/cartStore'
 
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 
 const { VITE_URL, VITE_PATH } = import.meta.env
 
@@ -227,7 +227,7 @@ export default {
   },
   methods: {
     ...mapActions(useToastMessageStore, ['pushMessage']),
-    ...mapActions(cartStore, ['deleteAllCarts', 'removeCartItem', 'updateCart', 'addCouponCode']),
+    ...mapActions(cartStore, ['deleteAllCarts', 'removeCartItem', 'updateCart', 'addCouponCode', 'getCart']),
     getProducts() {
       const url = `${VITE_URL}/api/${VITE_PATH}/products`
       this.isLoading = true
@@ -245,58 +245,58 @@ export default {
             content: error.response.data.message
           })
         })
-    },
-    getCart() {
-      const url = `${VITE_URL}/api/${VITE_PATH}/cart`
-      this.isLoading = true
-      this.$http
-        .get(url)
-        .then((response) => {
-          this.cart = response.data.data
-          this.isLoading = false
-        })
-        .catch((error) => {
-          this.isLoading = false
-          this.pushMessage({
-            style: 'danger',
-            title: '取得購物車資訊',
-            content: error.response.data.message
-          })
-        })
-    },
-    createOrder() {
-      Swal.fire({
-        title: '確定送出訂單?',
-        text: '即將進入付款頁面',
-        icon: 'info',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '前往付款',
-        cancelButtonText: '再去逛逛'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.isLoading = true
-          const url = `${VITE_URL}/api/${VITE_PATH}/order`
-          const order = this.form
-          this.$http
-            .post(url, { data: order })
-            .then((response) => {
-              this.$router.push(`checkout/${response.data.orderId}`)
-              this.$refs.form.resetForm()
-              this.isLoading = false
-            })
-            .catch((error) => {
-              this.isLoading = false
-              this.pushMessage({
-                style: 'danger',
-                title: '建立訂單',
-                content: error.response.data.message
-              })
-            })
-        }
-      })
     }
+    // getCart() {
+    //   const url = `${VITE_URL}/api/${VITE_PATH}/cart`
+    //   this.isLoading = true
+    //   this.$http
+    //     .get(url)
+    //     .then((response) => {
+    //       this.cart = response.data.data
+    //       this.isLoading = false
+    //     })
+    //     .catch((error) => {
+    //       this.isLoading = false
+    //       this.pushMessage({
+    //         style: 'danger',
+    //         title: '取得購物車資訊',
+    //         content: error.response.data.message
+    //       })
+    //     })
+    // },
+    // createOrder() {
+    //   Swal.fire({
+    //     title: '確定送出訂單?',
+    //     text: '即將進入付款頁面',
+    //     icon: 'info',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: '前往付款',
+    //     cancelButtonText: '再去逛逛'
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+    //       this.isLoading = true
+    //       const url = `${VITE_URL}/api/${VITE_PATH}/order`
+    //       const order = this.form
+    //       this.$http
+    //         .post(url, { data: order })
+    //         .then((response) => {
+    //           this.$router.push(`checkout/${response.data.orderId}`)
+    //           this.$refs.form.resetForm()
+    //           this.isLoading = false
+    //         })
+    //         .catch((error) => {
+    //           this.isLoading = false
+    //           this.pushMessage({
+    //             style: 'danger',
+    //             title: '建立訂單',
+    //             content: error.response.data.message
+    //           })
+    //         })
+    //     }
+    //   })
+    // }
   },
   computed: {
     ...mapState(cartStore, ['carts', 'final_total', 'total', 'isLoadingP'])

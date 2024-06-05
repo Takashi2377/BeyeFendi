@@ -13,13 +13,13 @@
             <tr v-for="item in order.products" :key="item.id">
               <td>{{ item.product.title }}</td>
               <td>{{ item.qty }}/{{ item.product.unit }}</td>
-              <td class="text-end">{{ Math.floor(item.final_total) }}</td>
+              <td class="text-end">NT$ {{ Math.floor(item.final_total) }}</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
               <td colspan="2" class="text-end">總計</td>
-              <td class="text-end">{{ Math.floor(order.total) }}</td>
+              <td class="text-end">NT$ {{ Math.floor(order.total) }}</td>
             </tr>
           </tfoot>
         </table>
@@ -71,75 +71,32 @@ import cartStore from '@/stores/cartStore'
 export default {
   data() {
     return {
-      order: { },
       orderId: '',
-      isLoading: false
+      isLoading: false,
+      order: {
+        user: {}
+      }
     }
   },
   methods: {
     ...mapActions(useToastMessageStore, ['pushMessage']),
     ...mapActions(cartStore, ['payOrder', 'getOrder'])
-    // getOrder() {
-    //   const url = `${VITE_URL}/api/${VITE_PATH}/order/${this.orderId}`
-    //   this.isLoading = true
-    //   this.$http
-    //     .get(url)
-    //     .then((response) => {
-    //       this.order = response.data.order
-    //       this.isLoading = false
-    //     })
-    //     .catch((error) => {
-    //       this.isLoading = false
-    //       this.pushMessage({
-    //         style: 'danger',
-    //         title: '取得訂單失敗',
-    //         content: error.response.data.message
-    //       })
-    //     })
-    // },
-    // payOrder() {
-    //   const url = `${VITE_URL}/api/${VITE_PATH}/pay/${this.orderId}`
-    //   Swal.fire({
-    //     title: '確認付款?',
-    //     text: '請再次確認訂單及收件人資料無誤',
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: '確認付款',
-    //     cancelButtonText: '先等等'
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       this.isLoading = true
-    //       this.$http
-    //         .post(url)
-    //         .then(() => {
-    //           this.isLoading = false
-    //           this.getOrder()
-    //         })
-    //         .catch((error) => {
-    //           this.isLoading = false
-    //           this.pushMessage({
-    //             style: 'danger',
-    //             title: '付款失敗',
-    //             content: error.response.data.message
-    //           })
-    //         })
-    //     }
-    //   })
-    // }
   },
   computed: {
-    ...mapState(cartStore, ['isLoadingP', 'order'])
+    ...mapState(cartStore, ['isLoadingP', 'orderP'])
   },
   watch: {
     isLoadingP() {
       this.isLoading = this.isLoadingP
+    },
+    orderP() {
+      this.order.is_paid = this.orderP.is_paid
     }
   },
   created() {
     this.orderId = this.$route.params.orderId
     this.getOrder(this.orderId)
+    this.order = this.orderP
   }
 }
 </script>
