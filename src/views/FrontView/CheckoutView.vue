@@ -2,7 +2,7 @@
   <div class="container">
     <VueLoading :active="isLoading" :z-index="1060" />
     <div class="my-6 row justify-content-center">
-      <form class="col-md-6" @submit.prevent="payOrder">
+      <form class="col-md-6" @submit.prevent="payOrder(orderId)">
         <table class="table align-middle">
           <thead>
             <th>品名</th>
@@ -60,77 +60,86 @@
 </template>
 
 <script>
-import { mapActions } from 'pinia'
+import { mapActions, mapState } from 'pinia'
 import { useToastMessageStore } from '@/stores/toastMessage'
+import cartStore from '@/stores/cartStore'
 
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 
-const { VITE_URL, VITE_PATH } = import.meta.env
+// const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
   data() {
     return {
-      order: {
-        user: {}
-      },
-      orderId: ''
+      order: { },
+      orderId: '',
+      isLoading: false
     }
   },
   methods: {
     ...mapActions(useToastMessageStore, ['pushMessage']),
-    getOrder() {
-      const url = `${VITE_URL}/api/${VITE_PATH}/order/${this.orderId}`
-      this.isLoading = true
-      this.$http
-        .get(url)
-        .then((response) => {
-          this.order = response.data.order
-          this.isLoading = false
-        })
-        .catch((error) => {
-          this.isLoading = false
-          this.pushMessage({
-            style: 'danger',
-            title: '取得訂單失敗',
-            content: error.response.data.message
-          })
-        })
-    },
-    payOrder() {
-      const url = `${VITE_URL}/api/${VITE_PATH}/pay/${this.orderId}`
-      Swal.fire({
-        title: '確認付款?',
-        text: '請再次確認訂單及收件人資料無誤',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '確認付款',
-        cancelButtonText: '先等等'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.isLoading = true
-          this.$http
-            .post(url)
-            .then(() => {
-              this.isLoading = false
-              this.getOrder()
-            })
-            .catch((error) => {
-              this.isLoading = false
-              this.pushMessage({
-                style: 'danger',
-                title: '付款失敗',
-                content: error.response.data.message
-              })
-            })
-        }
-      })
+    ...mapActions(cartStore, ['payOrder', 'getOrder'])
+    // getOrder() {
+    //   const url = `${VITE_URL}/api/${VITE_PATH}/order/${this.orderId}`
+    //   this.isLoading = true
+    //   this.$http
+    //     .get(url)
+    //     .then((response) => {
+    //       this.order = response.data.order
+    //       this.isLoading = false
+    //     })
+    //     .catch((error) => {
+    //       this.isLoading = false
+    //       this.pushMessage({
+    //         style: 'danger',
+    //         title: '取得訂單失敗',
+    //         content: error.response.data.message
+    //       })
+    //     })
+    // },
+    // payOrder() {
+    //   const url = `${VITE_URL}/api/${VITE_PATH}/pay/${this.orderId}`
+    //   Swal.fire({
+    //     title: '確認付款?',
+    //     text: '請再次確認訂單及收件人資料無誤',
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     confirmButtonText: '確認付款',
+    //     cancelButtonText: '先等等'
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+    //       this.isLoading = true
+    //       this.$http
+    //         .post(url)
+    //         .then(() => {
+    //           this.isLoading = false
+    //           this.getOrder()
+    //         })
+    //         .catch((error) => {
+    //           this.isLoading = false
+    //           this.pushMessage({
+    //             style: 'danger',
+    //             title: '付款失敗',
+    //             content: error.response.data.message
+    //           })
+    //         })
+    //     }
+    //   })
+    // }
+  },
+  computed: {
+    ...mapState(cartStore, ['isLoadingP', 'order'])
+  },
+  watch: {
+    isLoadingP() {
+      this.isLoading = this.isLoadingP
     }
   },
   created() {
     this.orderId = this.$route.params.orderId
-    this.getOrder()
+    this.getOrder(this.orderId)
   }
 }
 </script>

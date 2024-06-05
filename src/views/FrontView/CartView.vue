@@ -101,7 +101,7 @@
           <button
             class="btn btn-outline-secondary"
             type="button"
-            @click="addCouponCode"
+            @click="addCouponCode(coupon_code)"
           >
             套用優惠碼
           </button>
@@ -221,14 +221,13 @@ export default {
         },
         message: ''
       },
-      // cart: {},
       isLoading: false,
       coupon_code: ''
     }
   },
   methods: {
     ...mapActions(useToastMessageStore, ['pushMessage']),
-    ...mapActions(cartStore, ['deleteAllCarts', 'removeCartItem']),
+    ...mapActions(cartStore, ['deleteAllCarts', 'removeCartItem', 'updateCart', 'addCouponCode']),
     getProducts() {
       const url = `${VITE_URL}/api/${VITE_PATH}/products`
       this.isLoading = true
@@ -247,42 +246,6 @@ export default {
           })
         })
     },
-    // deleteAllCarts() {
-    //   const url = `${VITE_URL}/api/${VITE_PATH}/carts`
-    //   Swal.fire({
-    //     title: '你確定嗎?',
-    //     text: '購物車清空後無法復原',
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: '確定清空!',
-    //     cancelButtonText: '再想一下...'
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       this.isLoading = true
-    //       this.$http
-    //         .delete(url)
-    //         .then((response) => {
-    //           this.getCart()
-    //           this.isLoading = false
-    //         })
-    //         .catch((error) => {
-    //           this.isLoading = false
-    //           this.pushMessage({
-    //             style: 'danger',
-    //             title: '清除購物車',
-    //             content: error.response.data.message
-    //           })
-    //         })
-    //       Swal.fire({
-    //         title: 'Clear!',
-    //         text: '購物車空空如也',
-    //         icon: 'success'
-    //       })
-    //     }
-    //   })
-    // },
     getCart() {
       const url = `${VITE_URL}/api/${VITE_PATH}/cart`
       this.isLoading = true
@@ -297,85 +260,6 @@ export default {
           this.pushMessage({
             style: 'danger',
             title: '取得購物車資訊',
-            content: error.response.data.message
-          })
-        })
-    },
-    // removeCartItem(id) {
-    //   this.status.loadingItem = id
-    //   const url = `${VITE_URL}/api/${VITE_PATH}/cart/${id}`
-    //   this.isLoading = true
-    //   this.$http
-    //     .delete(url)
-    //     .then((response) => {
-    //       this.pushMessage({
-    //         style: 'success',
-    //         title: '移除購物車品項',
-    //         content: response.data.message
-    //       })
-    //       this.status.loadingItem = ''
-    //       this.isLoading = false
-    //       this.getCart()
-    //     })
-    //     .catch((error) => {
-    //       this.isLoading = false
-    //       this.pushMessage({
-    //         style: 'danger',
-    //         title: '移除購物車品項',
-    //         content: error.response.data.message
-    //       })
-    //     })
-    // },
-    updateCart(data) {
-      this.isLoading = true
-      const url = `${VITE_URL}/api/${VITE_PATH}/cart/${data.id}`
-      const cart = {
-        product_id: data.product_id,
-        qty: data.qty
-      }
-
-      this.$http
-        .put(url, { data: cart })
-        .then((response) => {
-          this.pushMessage({
-            style: 'success',
-            title: '更新購物車',
-            content: response.data.message
-          })
-          this.isLoading = false
-          this.getCart()
-        })
-        .catch((error) => {
-          this.isLoading = false
-          this.pushMessage({
-            style: 'danger',
-            title: '更新購物車',
-            content: error.response.data.message
-          })
-        })
-    },
-    addCouponCode() {
-      const url = `${VITE_URL}/api/${VITE_PATH}/coupon`
-      const coupon = {
-        code: this.coupon_code
-      }
-      this.isLoading = true
-      this.$http
-        .post(url, { data: coupon })
-        .then((response) => {
-          this.pushMessage({
-            style: 'success',
-            title: '加入優惠券',
-            content: response.data.message
-          })
-          this.getCart()
-          this.isLoading = false
-        })
-        .catch((error) => {
-          this.isLoading = false
-          this.pushMessage({
-            style: 'danger',
-            title: '優惠碼加入失敗',
             content: error.response.data.message
           })
         })
@@ -415,7 +299,12 @@ export default {
     }
   },
   computed: {
-    ...mapState(cartStore, ['carts', 'final_total', 'total'])
+    ...mapState(cartStore, ['carts', 'final_total', 'total', 'isLoadingP'])
+  },
+  watch: {
+    isLoadingP() {
+      this.isLoading = this.isLoadingP
+    }
   },
   created() {
     this.getProducts()
