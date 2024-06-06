@@ -157,7 +157,8 @@ export default defineStore('cartStore', {
           })
         })
     },
-    createOrder() {
+    createOrder(form, router, refsForm) {
+      const { pushMessage } = useToastMessageStore()
       Swal.fire({
         title: '確定送出訂單?',
         text: '即將進入付款頁面',
@@ -169,22 +170,22 @@ export default defineStore('cartStore', {
         cancelButtonText: '再去逛逛'
       }).then((result) => {
         if (result.isConfirmed) {
-          this.isLoading = true
+          this.isLoadingP = true
           const url = `${VITE_URL}/api/${VITE_PATH}/order`
-          const order = this.form
-          this.$http
+          const order = form
+          axios
             .post(url, { data: order })
             .then((response) => {
-              this.$router.push(`checkout/${response.data.orderId}`)
-              this.$refs.form.resetForm()
-              this.isLoading = false
+              router.push(`checkout/${response.data.orderId}`)
+              refsForm.resetForm()
+              this.isLoadingP = false
             })
             .catch((error) => {
-              this.isLoading = false
-              this.pushMessage({
+              this.isLoadingP = false
+              pushMessage({
                 style: 'danger',
                 title: '建立訂單',
-                content: error.response.data.message
+                content: error.response
               })
             })
         }

@@ -90,6 +90,7 @@ export default {
       this.isLoading = this.isLoadingP
     },
     orderP() {
+      this.order = this.orderP
       this.order.is_paid = this.orderP.is_paid
     }
   },
