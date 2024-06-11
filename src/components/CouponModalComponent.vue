@@ -59,6 +59,7 @@
               class="form-control"
               id="price"
               min="0"
+              oninput="if(value<1)value=1;if(value>99)value=99"
               v-model.number="tempCoupon.percent"
               placeholder="請輸入折扣百分比"
             />

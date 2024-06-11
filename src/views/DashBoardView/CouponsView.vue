@@ -97,7 +97,8 @@ export default {
       this.isNew = isNew
       if (this.isNew) {
         this.tempCoupon = {
-          due_date: new Date().getTime() / 1000
+          due_date: new Date().getTime() / 1000,
+          is_enabled: 0
         }
       } else {
         this.tempCoupon = { ...item }
@@ -130,16 +131,16 @@ export default {
     updateCoupon(tempCoupon) {
       this.isLoading = true
       let url = `${VITE_URL}/api/${VITE_PATH}/admin/coupon`
-      let httpMethos = 'post'
+      let httpMethods = 'post'
       let data = tempCoupon
 
       if (!this.isNew) {
         url = `${VITE_URL}/api/${VITE_PATH}/admin/coupon/${this.tempCoupon.id}`
-        httpMethos = 'put'
+        httpMethods = 'put'
         data = this.tempCoupon
       }
 
-      this.$http[httpMethos](url, { data })
+      this.$http[httpMethods](url, { data })
         .then((response) => {
           this.isLoading = false
           this.pushMessage({
