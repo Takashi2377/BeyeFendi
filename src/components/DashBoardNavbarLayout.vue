@@ -28,6 +28,8 @@
 import { mapActions } from 'pinia'
 import { useToastMessageStore } from '@/stores/toastMessage'
 
+import Swal from 'sweetalert2'
+
 const { VITE_URL } = import.meta.env
 
 export default {
@@ -35,23 +37,39 @@ export default {
     ...mapActions(useToastMessageStore, ['pushMessage']),
     logout() {
       const api = `${VITE_URL}/logout`
-      this.$http
-        .post(api)
-        .then((response) => {
-          this.pushMessage({
-            style: 'success',
-            title: '登出狀態',
-            content: response.data.message
+      Swal.fire({
+        title: '確定登出?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '登出',
+        cancelButtonText: '返回'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$http
+            .post(api)
+            .then((response) => {
+              this.pushMessage({
+                style: 'success',
+                title: '登出狀態',
+                content: response.data.message
+              })
+              this.$router.push('/login')
+            })
+            .catch((error) => {
+              this.pushMessage({
+                style: 'danger',
+                title: '登出狀態',
+                content: error.response.data.message
+              })
+            })
+          Swal.fire({
+            title: '已成功登出',
+            icon: 'success'
           })
-          this.$router.push('/login')
-        })
-        .catch((error) => {
-          this.pushMessage({
-            style: 'danger',
-            title: '登出狀態',
-            content: error.response.data.message
-          })
-        })
+        }
+      })
     }
   }
 }

@@ -21,10 +21,10 @@
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
           <td class="text">
-            {{ item.origin_price }}
+            {{ $filters.currency(item.origin_price) }}
           </td>
           <td class="text">
-            {{ item.price }}
+            {{ $filters.currency(item.price) }}
           </td>
           <td>
             <span v-if="item.is_enabled" class="text-success">啟用</span>

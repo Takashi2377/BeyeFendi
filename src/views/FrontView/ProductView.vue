@@ -25,9 +25,9 @@
         </nav>
         <h2 class="fw-bold h1 mb-1">{{ product.title }}</h2>
         <p class="mb-0 text-muted text-end">
-          <del>NT$ {{ product.origin_price }}</del>
+          <del>NT$ {{ $filters.currency(product.origin_price) }}</del>
         </p>
-        <p class="h4 fw-bold text-end">NT$ {{ product.price }}</p>
+        <p class="h4 fw-bold text-end">NT$ {{ $filters.currency(product.price) }}</p>
         <div class="row align-items-center">
           <div class="col-6">
             <div class="input-group my-3 bg-light rounded">
