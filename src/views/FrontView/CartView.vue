@@ -54,15 +54,40 @@
                 {{ item.product.title }}
                 <div class="text-success" v-if="item.coupon">已套用優惠券</div>
               </td>
-              <td>
-                <div class="input-group input-group-sm">
+              <td style="width: 200px">
+                <div class="input-group my-3 bg-light rounded">
+                  <div class="input-group-prepend">
+                    <button
+                      class="btn btn-outline-dark border-0 py-2"
+                      type="button"
+                      id="button-addon1"
+                      :disabled="item.qty === 1"
+                      @click="item.qty--"
+                      @blur="updateCart(item)"
+                    >
+                      <i class="bi bi-dash-lg"></i>
+                    </button>
+                  </div>
                   <input
-                    type="number"
-                    class="form-control"
-                    min="1"
+                    type="text"
+                    class="form-control border-0 text-center my-auto shadow-none bg-light"
+                    placeholder=""
+                    aria-label="Example text with button addon"
+                    aria-describedby="button-addon1"
                     v-model.number="item.qty"
-                    @blur="updateCart(item)"
+                    disabled
                   />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-dark border-0 py-2"
+                      type="button"
+                      id="button-addon2"
+                      @click="item.qty++"
+                      @blur="updateCart(item)"
+                    >
+                      <i class="bi bi-plus-lg"></i>
+                    </button>
+                  </div>
                   <div class="input-group-text">/ {{ item.product.unit }}</div>
                 </div>
               </td>

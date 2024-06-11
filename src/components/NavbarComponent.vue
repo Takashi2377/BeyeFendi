@@ -33,7 +33,7 @@
           </li>
           <li class="nav-item">
             <RouterLink
-              class="nav-link btn btn-secondary position-relative"
+              class="nav-link btn btn-secondary position-relative cart"
               to="/cart"
             >
               <i class="bi bi-cart"></i>
@@ -77,3 +77,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .active i  {
+    color: aliceblue;
+  }
+</style>
