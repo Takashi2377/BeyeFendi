@@ -9,6 +9,8 @@
         left: 0;
         right: 0;
         background-image: url(https://images.unsplash.com/photo-1495704907664-81f74a7efd9b?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+        background-size: cover;
+        height:93vh;
         background-position: center center;
         opacity: 0.2;
       "
