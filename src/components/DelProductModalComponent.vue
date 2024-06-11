@@ -20,10 +20,15 @@
             aria-label="Close"
           ></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" v-if="item.title">
           是否刪除
           <strong class="text-danger">{{ item.title }}</strong>
           商品(刪除後將無法恢復)。
+        </div>
+        <div class="modal-body" v-else>
+          是否刪除
+          <strong class="text-danger">該筆訂單</strong>
+          (刪除後將無法恢復)。
         </div>
         <div class="modal-footer">
           <button
