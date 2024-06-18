@@ -5,21 +5,22 @@
       <form class="col-md-6" @submit.prevent="payOrder(orderId)">
         <table class="table align-middle">
           <thead>
+          <tr>
             <th>品名</th>
             <th>數量</th>
-            <th>單價</th>
+            <th class="text-end">單價</th>
+          </tr>
           </thead>
           <tbody>
             <tr v-for="item in order.products" :key="item.id">
               <td>{{ item.product.title }}</td>
-              <td>{{ item.qty }}/{{ item.product.unit }}</td>
+              <td>{{ item.qty }} / {{ item.product.unit }}</td>
               <td class="text-end">NT$ {{ Math.floor(item.final_total) }}</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="2" class="text-end">總計</td>
-              <td class="text-end">NT$ {{ Math.floor(order.total) }}</td>
+              <td colspan="3" class="text-end">總計 : NT$ {{ Math.floor(order.total) }}</td>
             </tr>
           </tfoot>
         </table>

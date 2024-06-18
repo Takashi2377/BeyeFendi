@@ -143,7 +143,7 @@
         @submit="createOrder(form, router, refsForm)"
       >
         <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
+          <label for="email" class="form-label">*Email</label>
           <VeeField
             id="email"
             name="email"
@@ -158,7 +158,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="name" class="form-label">收件人姓名</label>
+          <label for="name" class="form-label">*收件人姓名</label>
           <VeeField
             id="name"
             name="姓名"
@@ -173,7 +173,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="tel" class="form-label">收件人電話</label>
+          <label for="tel" class="form-label">*收件人電話</label>
           <VeeField
             id="tel"
             name="電話"
@@ -188,7 +188,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="address" class="form-label">收件人地址</label>
+          <label for="address" class="form-label">*收件人地址</label>
           <VeeField
             id="address"
             name="地址"
@@ -203,7 +203,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="message" class="form-label">留言</label>
+          <label for="message" class="form-label">備註 (選填)</label>
           <textarea
             name=""
             id="message"
