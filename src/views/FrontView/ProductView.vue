@@ -13,10 +13,10 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-white px-0 mb-0 py-3">
             <li class="breadcrumb-item">
-              <router-link class="text-muted" :to="`/`">Home</router-link>
+              <router-link class="navItem" :to="`/`">Home</router-link>
             </li>
             <li class="breadcrumb-item">
-              <router-link class="text-muted" :to="`/products`"
+              <router-link class="navItem" :to="`/products`"
                 >Products</router-link
               >
             </li>
@@ -70,14 +70,19 @@
               >加入購物車</a
             >
           </div>
+          <div>
+            <p class="text-secondary text-start lh-lg col-10 offset-1 mt-5 fs-6" style="text-indent: 2rem">
+              {{ product.description }}
+            </p>
+          </div>
+          <div>
+            <p class="text-black-50 text-start lh-lg col-10 offset-1 mt-2 fs-6 fst-italic" >
+              *所有產品皆提供一年內非人為損壞保固、免費到府收件。
+              <br>
+              *所有產品皆可於出貨前客製化調整錶帶長度，請於訂單資料備註手腕測量結果。
+            </p>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row my-5">
-      <div class="col-md-4 offset-md-1">
-        <p class="text-muted text-start lh-lg" style="text-indent: 2rem">
-          {{ product.description }}
-        </p>
       </div>
     </div>
   </div>
@@ -178,3 +183,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.navItem {
+  color: grey;
+}
+.navItem:hover {
+  color: black;
+}
+</style>

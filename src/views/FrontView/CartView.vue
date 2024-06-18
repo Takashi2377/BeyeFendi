@@ -2,127 +2,125 @@
   <div class="container">
     <VueLoading :active="isLoading" :z-index="1060" />
     <!-- 購物車列表 -->
-    <div class="mt-4">
-      <div class="text-end" v-if="carts.length >= 1">
-        <button
-          class="btn btn-outline-danger"
-          type="button"
-          @click="deleteAllCarts"
-        >
-          清空購物車
-        </button>
-      </div>
-      <div class="text-end" v-else>
-        <button class="btn btn-outline-danger" type="button" disabled>
-          清空購物車
-        </button>
-      </div>
-      <table class="table align-middle">
-        <thead>
-          <tr>
-            <th style="width: 110px"></th>
-            <th>圖片</th>
-            <th>品名</th>
-            <th style="width: 110px">數量</th>
-            <th class="text-center">單價</th>
-          </tr>
-        </thead>
-        <tbody>
-          <template v-if="carts">
-            <tr v-for="item in carts" :key="item.id">
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-outline-danger btn-sm"
-                  :disabled="status.loadingItem === item.id"
-                  @click="removeCartItem(item.id)"
-                >
-                  <i class="bi bi-x"></i>
-                </button>
-              </td>
-              <td style="width: 200px">
-                <div
-                  style="
-                    height: 100px;
-                    background-size: cover;
-                    background-position: center;
-                  "
-                  :style="{ backgroundImage: `url(${item.product.imageUrl})` }"
-                ></div>
-              </td>
-              <td style="width: 300px">
-                {{ item.product.title }}
-                <div class="text-success" v-if="item.coupon">已套用優惠券</div>
-              </td>
-              <td style="width: 200px">
-                <div class="input-group my-3 bg-light rounded">
-                  <div class="input-group-prepend">
-                    <button
-                      class="btn btn-outline-dark border-0 py-2"
-                      type="button"
-                      id="button-addon1"
-                      :disabled="item.qty === 1"
-                      @click="item.qty--"
-                      @blur="updateCart(item)"
-                    >
-                      <i class="bi bi-dash-lg"></i>
-                    </button>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control border-0 text-center my-auto shadow-none bg-light"
-                    placeholder=""
-                    aria-label="Example text with button addon"
-                    aria-describedby="button-addon1"
-                    v-model.number="item.qty"
-                    disabled
-                  />
-                  <div class="input-group-append">
-                    <button
-                      class="btn btn-outline-dark border-0 py-2"
-                      type="button"
-                      id="button-addon2"
-                      @click="item.qty++"
-                      @blur="updateCart(item)"
-                    >
-                      <i class="bi bi-plus-lg"></i>
-                    </button>
-                  </div>
-                  <div class="input-group-text">/ {{ item.product.unit }}</div>
-                </div>
-              </td>
-              <td class="text-end">
-                <small
-                  v-if="final_total !== total"
-                  class="text-success"
-                  >折扣價：</small
-                >
-                $ {{ $filters.currency(item.final_total) }}
-              </td>
+    <div class="row">
+      <div class="col-md-8 offset-md-2 mt-4">
+        <div class="text-end" v-if="carts.length >= 1">
+          <button
+            class="btn btn-outline-danger"
+            type="button"
+            @click="deleteAllCarts"
+          >
+            清空購物車
+          </button>
+        </div>
+        <div class="text-end" v-else>
+          <button class="btn btn-outline-danger" type="button" disabled>
+            清空購物車
+          </button>
+        </div>
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="w-25">圖片</th>
+              <th style="width: 10rem">品名</th>
+              <th class="text-center w-25">數量</th>
+              <th class="text-end" style="width: 20rem">單價</th>
             </tr>
-          </template>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="4" class="text-end">總計</td>
-            <td class="text-end">NT$ {{ $filters.currency(total) }}</td>
-          </tr>
-          <tr v-if="final_total !== total">
-            <td colspan="4" class="text-end text-success">折扣價</td>
-            <td class="text-end text-success">
-              NT$ {{ $filters.currency(final_total) }}
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-      <div class="input-group mb-3 input-group-sm">
-        <input
-          type="text"
-          class="form-control"
-          v-model="coupon_code"
-          placeholder="輸入優惠碼 'FB777' ，即享線上首購優惠77折"
-        />
-        <div class="input-group-append">
+          </thead>
+          <tbody>
+            <template v-if="carts">
+              <tr v-for="item in carts" :key="item.id">
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm"
+                    :disabled="status.loadingItem === item.id"
+                    @click="removeCartItem(item.id)"
+                  >
+                    <i class="bi bi-x"></i>
+                  </button>
+                </td>
+                <td style="width: 200px">
+                  <div
+                    style="
+                      height: 100px;
+                      background-size: cover;
+                      background-position: center;
+                    "
+                    :style="{ backgroundImage: `url(${item.product.imageUrl})` }"
+                  ></div>
+                </td>
+                <td style="width: 300px">
+                  {{ item.product.title }}
+                  <div class="text-success" v-if="item.coupon">已套用優惠券</div>
+                </td>
+                <td style="width: 200px">
+                  <div class="input-group my-3 bg-light rounded">
+                    <div class="input-group-prepend">
+                      <button
+                        class="btn btn-outline-dark border-0 py-2"
+                        type="button"
+                        id="button-addon1"
+                        :disabled="item.qty === 1"
+                        @click="item.qty--"
+                        @blur="updateCart(item)"
+                      >
+                        <i class="bi bi-dash-lg"></i>
+                      </button>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control border-0 text-center my-auto shadow-none bg-light"
+                      placeholder=""
+                      aria-label="Example text with button addon"
+                      aria-describedby="button-addon1"
+                      v-model.number="item.qty"
+                      disabled
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-dark border-0 py-2"
+                        type="button"
+                        id="button-addon2"
+                        @click="item.qty++"
+                        @blur="updateCart(item)"
+                      >
+                        <i class="bi bi-plus-lg"></i>
+                      </button>
+                    </div>
+                    <div class="input-group-text">/ {{ item.product.unit }}</div>
+                  </div>
+                </td>
+                <td class="text-end">
+                  <small
+                    v-if="final_total !== total"
+                    class="text-success"
+                    >折扣價：</small
+                  >
+                  $ {{ $filters.currency(item.final_total) }}
+                </td>
+              </tr>
+            </template>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="text-end">總計 : NT$ {{ $filters.currency(total) }}</td>
+            </tr>
+            <tr v-if="final_total !== total">
+              <td colspan="5" class="text-end text-success">折扣價 : NT$ {{ $filters.currency(final_total) }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="col-md-4 offset-md-6">
+        <div class="input-group mb-3 input-group-sm">
+          <input
+            type="text"
+            class="form-control"
+            v-model="coupon_code"
+            placeholder="輸入優惠碼 'FB777' ，即享線上首購優惠77折"
+          />
           <button
             class="btn btn-outline-secondary"
             type="button"
@@ -130,11 +128,14 @@
           >
             套用優惠碼
           </button>
-        </div>
+      </div>
       </div>
     </div>
+    <div class="row">
+    <hr class="col-md-10 offset-md-1 mt-3">
+    </div>
     <!-- 表單驗證 -->
-    <div class="my-5 row justify-content-center">
+    <div class="my-4 row justify-content-center">
       <VeeForm
         ref="form"
         class="col-md-6"

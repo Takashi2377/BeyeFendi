@@ -48,17 +48,17 @@
               <div class="card-body py-0">
                 <ul class="list-unstyled">
                   <li>
-                    <router-link
-                      class="py-2 d-block text-muted"
+                    <RouterLink
+                      class="py-2 d-block sideBar"
                       :to="`/products`"
-                      >All</router-link
+                      >All</RouterLink
                     >
                   </li>
                   <li v-for="item in categories" :key="item">
-                    <router-link
-                      class="py-2 d-block text-muted"
+                    <RouterLink
+                      class="py-2 d-block sideBar"
                       :to="`/products?category=${item}`"
-                      >{{ item }}</router-link
+                      >{{ item }}</RouterLink
                     >
                   </li>
                 </ul>
@@ -71,18 +71,12 @@
         <div class="row">
           <div class="col-md-6" v-for="product in products" :key="product.id">
             <div class="card border-0 mb-4 position-relative position-relative">
-              <img
+              <RouterLink :to="`/product/${product.id}`" exact><img
                 :src="product.imageUrl"
-                class="card-img-top rounded-0 object-fit-cover"
+                class="card-img-top rounded-0 object-fit-cover img"
                 height="400"
                 alt="各項產品縮圖"
-              />
-              <a href="#" class="text-dark">
-                <i
-                  class="far fa-heart position-absolute"
-                  style="right: 16px; top: 16px"
-                ></i>
-              </a>
+              /></RouterLink>
               <div class="card-body p-0">
                 <h4 class="mb-0 mt-3">
                   <RouterLink
@@ -158,3 +152,21 @@ export default {
   }
 }
 </script>
+
+<style>
+.img:hover {
+  padding: 0.25rem;
+  outline: 0.2rem solid grey;
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+.sideBar {
+  color: grey
+}
+.sideBar:hover {
+  color: black;
+}
+/* .active {
+  color: black;
+} */
+</style>
