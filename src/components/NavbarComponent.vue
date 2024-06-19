@@ -7,27 +7,27 @@
       <button
         class="navbar-toggler"
         type="button"
-        data-bs-toggle="collapse"
         data-bs-target="#navbarNavAltMarkup"
         aria-controls="navbarNavAltMarkup"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        @click="toggleNavbar"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div
         class="collapse navbar-collapse justify-content-end"
-        id="navbarNavAltMarkup"
+        id="navbarNavAltMarkup"  ref="navbar"
       >
         <ul class="navbar-nav align-items-start">
           <li class="nav-item">
-            <RouterLink class="nav-link me-4" to="/">Home</RouterLink>
+            <RouterLink class="nav-link me-4" dataToggle to="/">Home</RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink class="nav-link me-4" to="/about">About</RouterLink>
+            <RouterLink class="nav-link me-4" dataToggle to="/about">About</RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink class="nav-link me-4" to="/products"
+            <RouterLink class="nav-link me-4" dataToggle to="/products"
               >Products</RouterLink
             >
           </li>
@@ -52,28 +52,37 @@
 </template>
 <script>
 import { mapActions, mapState } from 'pinia'
+import { Collapse } from 'bootstrap'
 
 import cartStore from '../stores/cartStore'
 
 export default {
   data() {
     return {
-      cart: {}
+      cart: {},
+      collapse: '',
+      show: false
     }
   },
   computed: {
     ...mapState(cartStore, ['carts'])
   },
   methods: {
-    ...mapActions(cartStore, ['getCart'])
+    ...mapActions(cartStore, ['getCart']),
+    toggleNavbar () {
+      if (this.$refs.navbar.classList.contains('show')) {
+        this.collapse.hide()
+      } else {
+        this.collapse.show()
+      }
+    }
   },
-  // watch: {
-  //   carts(newValue, oldValue) {
-  //     this.carts.length = newValue.length
-  //   }
-  // },
   mounted() {
     this.getCart()
+    this.collapse = new Collapse(this.$refs.navbar, { toggle: false })
+    this.$router.beforeEach((to, from) => {
+      this.collapse.hide()
+    })
   }
 }
 </script>
