@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container py-4">
     <VueLoading :active="isLoading" :z-index="1060" />
     <div class="row align-items-center">
       <div class="col-md-7 pt-3">
@@ -88,7 +88,7 @@
   </div>
   <div class="container">
     <hr />
-    <div class="row mt-5" v-if="recommendProducts.length > 0">
+    <div class="row my-3" v-if="recommendProducts.length > 0">
       <h2 class="text-center py-2">其他商品</h2>
       <div
         class="col-md-4 mt-md-4"

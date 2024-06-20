@@ -18,14 +18,14 @@
             清空購物車
           </button>
         </div>
-        <table class="table align-middle">
+        <table class="table align-middle mt-2">
           <thead>
             <tr>
               <th></th>
               <th class="w-25">圖片</th>
-              <th style="width: 10rem">品名</th>
-              <th class="text-center w-25">數量</th>
-              <th class="text-end" style="width: 20rem">單價</th>
+              <th style="width: 10rem"  class="text-center">品名</th>
+              <th class="text-center" style="width: 10rem">數量</th>
+              <th class="text-end">單價</th>
             </tr>
           </thead>
           <tbody>
@@ -41,21 +41,23 @@
                     <i class="bi bi-x"></i>
                   </button>
                 </td>
-                <td style="width: 200px">
+                <td>
                   <div
                     style="
-                      height: 100px;
+                      height: 6rem;
+                      min-width: 6rem;
                       background-size: cover;
                       background-position: center;
                     "
                     :style="{ backgroundImage: `url(${item.product.imageUrl})` }"
+                    class="object-fit-cover"
                   ></div>
                 </td>
-                <td style="width: 300px">
+                <td  class="text-center">
                   {{ item.product.title }}
                   <div class="text-success" v-if="item.coupon">已套用優惠券</div>
                 </td>
-                <td style="width: 200px">
+                <td>
                   <div class="input-group my-3 bg-light rounded">
                     <div class="input-group-prepend">
                       <button
@@ -89,7 +91,6 @@
                         <i class="bi bi-plus-lg"></i>
                       </button>
                     </div>
-                    <div class="input-group-text">/ {{ item.product.unit }}</div>
                   </div>
                 </td>
                 <td class="text-end">

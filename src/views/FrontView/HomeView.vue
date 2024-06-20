@@ -156,7 +156,7 @@
         >
       </div>
     </div>
-    <div class="row flex-row-reverse justify-content-between mt-4">
+    <div class="row flex-row-reverse justify-content-between mt-7">
       <div class="col-md-6">
         <img
           src="https://images.unsplash.com/photo-1704782625031-7e26bdf2e0fb?q=80&w=650&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

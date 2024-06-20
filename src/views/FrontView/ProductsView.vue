@@ -73,7 +73,7 @@
             <div class="card border-0 mb-4 position-relative position-relative">
               <RouterLink :to="`/product/${product.id}`" exact><img
                 :src="product.imageUrl"
-                class="card-img-top rounded-0 object-fit-cover img"
+                class="card-img-top rounded-1 object-fit-cover img"
                 height="400"
                 alt="各項產品縮圖"
               /></RouterLink>
