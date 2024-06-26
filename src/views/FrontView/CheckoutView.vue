@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="!orderP.is_paid">
     <VueLoading :active="isLoading" :z-index="1060" />
     <div class="my-6 row justify-content-center">
       <form class="col-md-6" @submit.prevent="payOrder(orderId)">
@@ -46,16 +46,25 @@
             <tr>
               <th>付款狀態</th>
               <td>
-                <span v-if="!order.is_paid">尚未付款</span>
+                <span v-if="!orderP.is_paid">尚未付款</span>
                 <span v-else class="text-success">付款完成</span>
               </td>
             </tr>
           </tbody>
         </table>
-        <div class="text-end" v-if="order.is_paid === false">
+        <div class="text-end" v-if="!orderP.is_paid">
           <button type="submit" class="btn btn-danger">確認付款</button>
         </div>
       </form>
+    </div>
+  </div>
+  <div class="container" v-else-if="orderP.is_paid">
+    <div class="d-flex flex-column align-items-center is-paid">
+      <i class="bi bi-check-circle"></i>
+      <h5 class="my-3 text-dark">付款完成!</h5>
+      <RouterLink type="button" class="btn btn-secondary my-3 px-5 py-2" to="/products">
+        繼續選購
+      </RouterLink>
     </div>
   </div>
 </template>
@@ -102,3 +111,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.is-paid {
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+}
+.bi-check-circle {
+  font-size: 8rem;
+  color: rgb(72, 189, 150);
+}
+</style>
