@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="carts.length">
     <VueLoading :active="isLoading" :z-index="1060" />
     <!-- 購物車列表 -->
     <div class="row">
@@ -133,7 +133,7 @@
       </div>
     </div>
     <div class="row">
-    <hr class="col-md-10 offset-md-1 mt-3">
+      <hr class="col-md-10 offset-md-1 mt-3">
     </div>
     <!-- 表單驗證 -->
     <div class="my-4 row justify-content-center">
@@ -220,6 +220,15 @@
       </VeeForm>
     </div>
   </div>
+  <div class="container" v-else>
+    <div class="d-flex flex-column align-items-center non-cart">
+      <i class="bi bi-cart2 text-black-50"></i>
+      <h5 class="my-3 text-black-50">您的購物車中目前沒有商品</h5>
+      <RouterLink type="button" class="btn btn-secondary my-3 px-5 py-2" to="/products">
+        前往購物
+      </RouterLink>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -288,3 +297,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.non-cart {
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+}
+.bi-cart2 {
+  font-size: 8rem;
+}
+</style>
