@@ -57,6 +57,7 @@
                   <li v-for="item in categories" :key="item">
                     <RouterLink
                       class="py-2 d-block sideBar"
+                      :class="{'filter-active': $route.query.category === item}"
                       :to="`/products?category=${item}`"
                       >{{ item }}</RouterLink
                     >
@@ -166,7 +167,7 @@ export default {
 .sideBar:hover {
   color: black;
 }
-/* .active {
+.filter-active {
   color: black;
-} */
+}
 </style>

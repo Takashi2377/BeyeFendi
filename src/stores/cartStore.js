@@ -227,10 +227,11 @@ export default defineStore('cartStore', {
           this.isLoadingP = true
           axios
             .post(url)
-            .then(() => {
+            .then((res) => {
               this.isLoadingP = false
               this.getOrder(orderId)
               this.getCart()
+              // this.is_paid = res.is_paid
             })
             .catch((error) => {
               this.isLoadingP = false

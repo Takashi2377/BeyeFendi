@@ -58,7 +58,7 @@
       </form>
     </div>
   </div>
-  <div class="container" v-else-if="orderP.is_paid">
+  <div class="container" v-else>
     <div class="d-flex flex-column align-items-center is-paid">
       <i class="bi bi-check-circle"></i>
       <h5 class="my-3 text-dark">付款完成!</h5>
@@ -73,10 +73,6 @@
 import { mapActions, mapState } from 'pinia'
 import { useToastMessageStore } from '@/stores/toastMessage'
 import cartStore from '@/stores/cartStore'
-
-// import Swal from 'sweetalert2'
-
-// const { VITE_URL, VITE_PATH } = import.meta.env
 
 export default {
   data() {

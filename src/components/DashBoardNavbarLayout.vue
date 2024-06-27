@@ -55,6 +55,7 @@ export default {
                 title: '登出狀態',
                 content: response.data.message
               })
+              document.cookie = 'hexToken=;expires=;'
               this.$router.push('/login')
             })
             .catch((error) => {
