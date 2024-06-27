@@ -223,7 +223,7 @@
   <div class="container" v-else>
     <div class="d-flex flex-column align-items-center non-cart">
       <i class="bi bi-cart2 text-black-50"></i>
-      <h5 class="my-3 text-black-50">您的購物車中目前沒有商品</h5>
+      <h5 class="my-3 text-black-50">您的購物車中目前沒有商品...</h5>
       <RouterLink type="button" class="btn btn-secondary my-3 px-5 py-2" to="/products">
         前往購物
       </RouterLink>
