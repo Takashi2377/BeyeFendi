@@ -14,7 +14,8 @@ export default defineStore('cartStore', {
     total: 0,
     isLoadingP: false,
     orderP: {
-      user: {}
+      user: {},
+      is_paid: false
     }
   }),
   actions: {
@@ -231,7 +232,6 @@ export default defineStore('cartStore', {
               this.isLoadingP = false
               this.getOrder(orderId)
               this.getCart()
-              // this.is_paid = res.is_paid
             })
             .catch((error) => {
               this.isLoadingP = false
