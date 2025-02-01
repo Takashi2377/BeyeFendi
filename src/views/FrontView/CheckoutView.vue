@@ -1,15 +1,15 @@
 <template>
-  <div class="container" v-if="!orderP.is_paid">
+  <div class="container" v-if="!orderP.is_paid && !isLoadingP">
     <VueLoading :active="isLoading" :z-index="1060" />
     <div class="my-6 row justify-content-center">
-      <form class="col-md-6" @submit.prevent="payOrder(orderId)">
+      <form class="col-md-6 my-1" @submit.prevent="payOrder(orderId)">
         <table class="table align-middle">
           <thead>
-          <tr>
-            <th>品名</th>
-            <th>數量</th>
-            <th class="text-end">單價</th>
-          </tr>
+            <tr>
+              <th>品名</th>
+              <th>數量</th>
+              <th class="text-end">單價</th>
+            </tr>
           </thead>
           <tbody>
             <tr v-for="item in order.products" :key="item.id">
@@ -20,7 +20,9 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3" class="text-end">總計 : NT$ {{ Math.floor(order.total) }}</td>
+              <td colspan="3" class="text-end">
+                總計 : NT$ {{ Math.floor(order.total) }}
+              </td>
             </tr>
           </tfoot>
         </table>
@@ -58,14 +60,21 @@
       </form>
     </div>
   </div>
-  <div class="container" v-else>
+  <div class="container" v-else-if="orderP.is_paid && !isLoadingP">
     <div class="d-flex flex-column align-items-center is-paid">
       <i class="bi bi-check-circle"></i>
       <h5 class="my-3 text-dark">付款完成!</h5>
-      <RouterLink type="button" class="btn btn-secondary my-3 px-5 py-2" to="/products">
+      <RouterLink
+        type="button"
+        class="btn btn-secondary my-3 px-5 py-2"
+        to="/products"
+      >
         繼續選購
       </RouterLink>
     </div>
+  </div>
+  <div v-else class="container">
+    <VueLoading :active="true" :z-index="1060" />
   </div>
 </template>
 
@@ -103,7 +112,6 @@ export default {
   created() {
     this.orderId = this.$route.params.orderId
     this.getOrder(this.orderId)
-    this.order = this.orderP
   }
 }
 </script>
@@ -116,5 +124,6 @@ export default {
 .bi-check-circle {
   font-size: 8rem;
   color: rgb(72, 189, 150);
+  margin-top: 2.3rem;
 }
 </style>
